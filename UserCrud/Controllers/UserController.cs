@@ -10,7 +10,7 @@ namespace UserCrud.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-
+        
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -25,7 +25,7 @@ namespace UserCrud.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
-        { 
+        {
             var result = _userService.GetUserById(id);
             return result.Success ? Ok(result) : NotFound(result);
         }

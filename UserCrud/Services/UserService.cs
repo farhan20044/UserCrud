@@ -9,7 +9,7 @@ namespace UserCrud.Services
     public class UserService : IUserService
     {
         private static readonly List<User> users = new();
-
+        //error message
         private static class ErrorMessages
         {
             public const string UserNotFound = "User not found";
@@ -19,9 +19,9 @@ namespace UserCrud.Services
             public const string InvalidEmailDomain = "Email domain must be one of the following: .com, .net, .org, .co, .pk";
             public const string NoAlphanumericCharacters = "Email must contain at least one alphanumeric character before @";
         }
-
+        //domians
         private static readonly string[] AllowedDomains = { ".com", ".net", ".org", ".co", ".pk" };
-
+        //validate email 
         private bool ValidateEmail(string email, out string error)
         {
             error = "";
