@@ -14,7 +14,6 @@ namespace UserCrud.Models
         }
 
         public int Id { get; set; }
-
         [Required(ErrorMessage = ErrorMessages.NameRequired)]
         [StringLength(12, MinimumLength = 8, ErrorMessage = ErrorMessages.NameLength)]
         public string Name { get; set; } = string.Empty;

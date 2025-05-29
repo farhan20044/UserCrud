@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using UserCrud.Models;
+using UserCrud.Helpers;
 using System.Text.RegularExpressions;
-using System.Linq;
 
 namespace UserCrud.Controllers
 {
@@ -24,14 +24,15 @@ namespace UserCrud.Controllers
             public const string ServerError = "An unexpected error occurred";
         }
 
-        // Valid email domains
         private static readonly string[] AllowedDomains = { ".com", ".net", ".org", ".co", ".pk" };
+
+        //Pass error message to ModelState
         private void AddModelError(string errorMessage)
         {
             ModelState.AddModelError("errors", errorMessage);
+            
         }
-
-        // Email validation method
+        //Validate Email Address
         private bool ValidateEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -42,7 +43,6 @@ namespace UserCrud.Controllers
 
             try
             {
-                // Check basic email format
                 if (!new EmailAddressAttribute().IsValid(email))
                 {
                     AddModelError(ErrorMessages.InvalidEmailFormat);
@@ -56,7 +56,6 @@ namespace UserCrud.Controllers
                     return false;
                 }
 
-                // Check for allowed domains
                 var domain = email.Substring(email.LastIndexOf('@')).ToLower();
                 if (!AllowedDomains.Any(allowed => domain.EndsWith(allowed)))
                 {
@@ -81,15 +80,14 @@ namespace UserCrud.Controllers
                 var user = users.FirstOrDefault(u => u.Id == id);
                 if (user == null)
                 {
-                    AddModelError(ErrorMessages.UserNotFound);
-                    return NotFound(ModelState);
+                    return NotFound(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
                 }
-                return Ok(user);
+
+                return Ok(ApiResponse<User>.SuccessResponse(user));
             }
-            catch (Exception)
+            catch
             {
-                AddModelError(ErrorMessages.ServerError);
-                return BadRequest(ModelState);
+                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.ServerError));
             }
         }
 
@@ -98,12 +96,11 @@ namespace UserCrud.Controllers
         {
             try
             {
-                return Ok(users);
+                return Ok(ApiResponse<List<User>>.SuccessResponse(users));
             }
-            catch (Exception)
+            catch
             {
-                AddModelError(ErrorMessages.ServerError);
-                return BadRequest(ModelState);
+                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.ServerError));
             }
         }
 
@@ -113,25 +110,24 @@ namespace UserCrud.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                    return BadRequest(ApiResponse<string>.FailureResponse("Invalid data"));
 
                 if (!ValidateEmail(newUser.Email))
-                    return BadRequest(ModelState);
+                    return BadRequest(ApiResponse<string>.FailureResponse("Invalid email"));
 
                 if (users.Any(u => u.Email.Equals(newUser.Email, StringComparison.OrdinalIgnoreCase)))
                 {
-                    AddModelError(ErrorMessages.DuplicateEmail);
-                    return Conflict(ModelState);
+                    return Conflict(ApiResponse<string>.FailureResponse(ErrorMessages.DuplicateEmail));
                 }
 
                 newUser.Id = users.Count == 0 ? 1 : users.Max(u => u.Id) + 1;
                 users.Add(newUser);
-                return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, newUser);
+
+                return CreatedAtAction(nameof(GetUser), new { id = newUser.Id }, ApiResponse<User>.SuccessResponse(newUser));
             }
-            catch (Exception)
+            catch
             {
-                AddModelError(ErrorMessages.ServerError);
-                return BadRequest(ModelState);
+                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.ServerError));
             }
         }
 
@@ -141,33 +137,31 @@ namespace UserCrud.Controllers
             try
             {
                 if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+                    return BadRequest(ApiResponse<string>.FailureResponse("Invalid data"));
 
                 if (!ValidateEmail(updatedUser.Email))
-                    return BadRequest(ModelState);
+                    return BadRequest(ApiResponse<string>.FailureResponse("Invalid email"));
 
                 var user = users.FirstOrDefault(u => u.Id == id);
                 if (user == null)
                 {
-                    AddModelError(ErrorMessages.UserNotFound);
-                    return NotFound(ModelState);
+                    return NotFound(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
                 }
 
                 if (!user.Email.Equals(updatedUser.Email, StringComparison.OrdinalIgnoreCase) &&
                     users.Any(u => u.Email.Equals(updatedUser.Email, StringComparison.OrdinalIgnoreCase)))
                 {
-                    AddModelError(ErrorMessages.DuplicateEmail);
-                    return Conflict(ModelState);
+                    return Conflict(ApiResponse<string>.FailureResponse(ErrorMessages.DuplicateEmail));
                 }
 
                 user.Name = updatedUser.Name;
                 user.Email = updatedUser.Email;
-                return Ok(user);
+
+                return Ok(ApiResponse<User>.SuccessResponse(user));
             }
-            catch (Exception)
+            catch
             {
-                AddModelError(ErrorMessages.ServerError);
-                return BadRequest(ModelState);
+                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.ServerError));
             }
         }
 
@@ -179,21 +173,20 @@ namespace UserCrud.Controllers
                 var user = users.FirstOrDefault(u => u.Id == id);
                 if (user == null)
                 {
-                    AddModelError(ErrorMessages.UserNotFound);
-                    return NotFound(ModelState);
+                    return NotFound(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
                 }
 
                 users.Remove(user);
-                // renumbering Id
+
+                // Renumber IDs
                 for (int i = 0; i < users.Count; i++)
                     users[i].Id = i + 1;
 
-                return Ok(ErrorMessages.UserDeleted);
+                return Ok(ApiResponse<string>.SuccessResponse(null, ErrorMessages.UserDeleted));
             }
-            catch (Exception)
+            catch
             {
-                AddModelError(ErrorMessages.ServerError);
-                return BadRequest(ModelState);
+                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.ServerError));
             }
         }
     }
