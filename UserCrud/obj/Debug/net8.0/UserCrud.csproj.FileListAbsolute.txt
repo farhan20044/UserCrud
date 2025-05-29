@@ -58,3 +58,4 @@ C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\refint\UserC
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.pdb
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.genruntimeconfig.cache
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\ref\UserCrud.dll
+C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.sourcelink.json
