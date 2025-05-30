@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using UserCrud.Helpers;
-namespace UserCrud.Models
+namespace UserCrud.Models.Dto
 {
-    public class User
+    public class UpdateUserDto
     {
-
-        public int Id { get; set; }
         [Required(ErrorMessage = ErrorMessages.NameRequired)]
         [StringLength(12, MinimumLength = 8, ErrorMessage = ErrorMessages.NameLength)]
         public string Name { get; set; } = string.Empty;

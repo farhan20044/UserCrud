@@ -2,36 +2,28 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using UserCrud.Models;
 using UserCrud.Helpers;
-using UserCrud.Services;
+using UserCrud.Models.Dto;
+using AutoMapper;
 
 namespace UserCrud.Services
 {
     public class UserService : IUserService
     {
         private static readonly List<User> users = new();
-        //error message
-        private static class ErrorMessages
+        private readonly IMapper _mapper;
+
+        public UserService(IMapper mapper)
         {
-            public const string UserNotFound = "User not found";
-            public const string DuplicateEmail = "Email already exists";
-            public const string UserDeleted = "User deleted successfully";
-            public const string InvalidEmailFormat = "Invalid email format";
-            public const string InvalidEmailDomain = "Email domain must be one of the following: .com, .net, .org, .co, .pk";
-            public const string NoAlphanumericCharacters = "Email must contain at least one alphanumeric character before @";
+            _mapper = mapper;
         }
-        //domians
+
+
         private static readonly string[] AllowedDomains = { ".com", ".net", ".org", ".co", ".pk" };
-        //validate email 
+
         private bool ValidateEmail(string email, out string error)
         {
             error = "";
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                error = ErrorMessages.InvalidEmailFormat;
-                return false;
-            }
-
-            if (!new EmailAddressAttribute().IsValid(email))
+            if (string.IsNullOrWhiteSpace(email) || !new EmailAddressAttribute().IsValid(email))
             {
                 error = ErrorMessages.InvalidEmailFormat;
                 return false;
@@ -54,51 +46,52 @@ namespace UserCrud.Services
             return true;
         }
 
-        public ApiResponse<List<User>> GetAllUsers()
+        public ApiResponse<List<UserDto>> GetAllUsers()
         {
-            return ApiResponse<List<User>>.SuccessResponse(users);
+            var dtoList = _mapper.Map<List<UserDto>>(users);
+            return ApiResponse<List<UserDto>>.SuccessResponse(dtoList);
         }
 
-        public ApiResponse<User> GetUserById(int id)
+        public ApiResponse<UserDto> GetUserById(int id)
         {
             var user = users.FirstOrDefault(u => u.Id == id);
             return user == null
-                ? ApiResponse<User>.FailureResponse(ErrorMessages.UserNotFound)
-                : ApiResponse<User>.SuccessResponse(user);
+                ? ApiResponse<UserDto>.FailureResponse(ErrorMessages.UserNotFound)
+                : ApiResponse<UserDto>.SuccessResponse(_mapper.Map<UserDto>(user));
         }
 
-        public ApiResponse<User> AddUser(User user)
+        public ApiResponse<UserDto> AddUser(CreateUserDto userDto)
         {
-            if (!ValidateEmail(user.Email, out string emailError))
-                return ApiResponse<User>.FailureResponse(emailError);
+            if (!ValidateEmail(userDto.Email, out string emailError))
+                return ApiResponse<UserDto>.FailureResponse(emailError);
 
-            if (users.Any(u => u.Email.Equals(user.Email, StringComparison.OrdinalIgnoreCase)))
-                return ApiResponse<User>.FailureResponse(ErrorMessages.DuplicateEmail);
+            if (users.Any(u => u.Email.Equals(userDto.Email, StringComparison.OrdinalIgnoreCase)))
+                return ApiResponse<UserDto>.FailureResponse(ErrorMessages.DuplicateEmail);
 
+            var user = _mapper.Map<User>(userDto);
             user.Id = users.Count == 0 ? 1 : users.Max(u => u.Id) + 1;
             users.Add(user);
-            return ApiResponse<User>.SuccessResponse(user);
+
+            return ApiResponse<UserDto>.SuccessResponse(_mapper.Map<UserDto>(user));
         }
 
-        public ApiResponse<User> UpdateUser(int id, User updatedUser)
+        public ApiResponse<UserDto> UpdateUser(int id, UpdateUserDto userDto)
         {
-            if (!ValidateEmail(updatedUser.Email, out string emailError))
-                return ApiResponse<User>.FailureResponse(emailError);
+            if (!ValidateEmail(userDto.Email, out string emailError))
+                return ApiResponse<UserDto>.FailureResponse(emailError);
 
             var user = users.FirstOrDefault(u => u.Id == id);
             if (user == null)
-                return ApiResponse<User>.FailureResponse(ErrorMessages.UserNotFound);
+                return ApiResponse<UserDto>.FailureResponse(ErrorMessages.UserNotFound);
 
-            if (!user.Email.Equals(updatedUser.Email, StringComparison.OrdinalIgnoreCase) &&
-                users.Any(u => u.Email.Equals(updatedUser.Email, StringComparison.OrdinalIgnoreCase)))
+            if (!user.Email.Equals(userDto.Email, StringComparison.OrdinalIgnoreCase) &&
+                users.Any(u => u.Email.Equals(userDto.Email, StringComparison.OrdinalIgnoreCase)))
             {
-                return ApiResponse<User>.FailureResponse(ErrorMessages.DuplicateEmail);
+                return ApiResponse<UserDto>.FailureResponse(ErrorMessages.DuplicateEmail);
             }
 
-            user.Name = updatedUser.Name;
-            user.Email = updatedUser.Email;
-
-            return ApiResponse<User>.SuccessResponse(user);
+            _mapper.Map(userDto, user);
+            return ApiResponse<UserDto>.SuccessResponse(_mapper.Map<UserDto>(user));
         }
 
         public ApiResponse<string> DeleteUser(int id)
@@ -108,9 +101,7 @@ namespace UserCrud.Services
                 return ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound);
 
             users.Remove(user);
-
-            for (int i = 0; i < users.Count; i++)
-                users[i].Id = i + 1;
+            for (int i = 0; i < users.Count; i++) users[i].Id = i + 1;
 
             return ApiResponse<string>.SuccessResponse(null, ErrorMessages.UserDeleted);
         }

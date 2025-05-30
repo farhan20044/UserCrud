@@ -1,7 +1,9 @@
 using Microsoft.OpenApi.Models;
+using UserCrud.Helpers;
 using UserCrud.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container
 builder.Services.AddControllers();

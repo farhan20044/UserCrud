@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UserCrud.Models;
+using UserCrud.Models.Dto;
 using UserCrud.Helpers;
 using UserCrud.Services;
 
@@ -10,7 +11,7 @@ namespace UserCrud.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        
+
         public UserController(IUserService userService)
         {
             _userService = userService;
@@ -31,22 +32,22 @@ namespace UserCrud.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public IActionResult AddUser([FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.FailureResponse("Invalid data"));
 
-            var result = _userService.AddUser(user);
+            var result = _userService.AddUser(userDto);
             return result.Success ? CreatedAtAction(nameof(GetUser), new { id = result.Data!.Id }, result) : Conflict(result);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, User user)
+        public IActionResult UpdateUser(int id, [FromBody] UpdateUserDto userDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ApiResponse<string>.FailureResponse("Invalid data"));
 
-            var result = _userService.UpdateUser(id, user);
+            var result = _userService.UpdateUser(id, userDto);
             return result.Success ? Ok(result) : Conflict(result);
         }
 
