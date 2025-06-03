@@ -12,5 +12,6 @@ namespace UserCrud.Helpers
         public const string NameLength = "Name must be between 8 and 12 characters";
         public const string EmailRequired = "Email is required";
         public const string EmailFormat = "Invalid email format";
+        public const string UserCreated = "User Created Successfull";
     }
 }

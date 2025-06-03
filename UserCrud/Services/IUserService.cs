@@ -1,15 +1,14 @@
-using UserCrud.Models;
-using UserCrud.Helpers;
 using UserCrud.Models.Dto;
+using System.Collections.Generic;
 
 namespace UserCrud.Services
 {
     public interface IUserService
     {
-        ApiResponse<List<UserDto>> GetAllUsers();
-        ApiResponse<UserDto> GetUserById(int id);
-        ApiResponse<UserDto> AddUser(CreateUserDto userDto);
-        ApiResponse<UserDto> UpdateUser(int id, UpdateUserDto userDto);
-        ApiResponse<string> DeleteUser(int id);
+        List<UserDto> GetAllUsers();
+        UserDto? GetUserById(int id);
+        UserDto? AddUser(CreateUserDto userDto, out string? error);
+        UserDto? UpdateUser(int id, UpdateUserDto userDto, out string? error);
+        bool DeleteUser(int id, out string? error);
     }
 }

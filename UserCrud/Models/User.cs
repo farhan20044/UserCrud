@@ -1,11 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UserCrud.Helpers;
-namespace UserCrud.Models
+using UserCrud.Helpers;namespace UserCrud.Models
 {
     public class User
     {
-
         public int Id { get; set; }
+        
         [Required(ErrorMessage = ErrorMessages.NameRequired)]
         [StringLength(12, MinimumLength = 8, ErrorMessage = ErrorMessages.NameLength)]
         public string Name { get; set; } = string.Empty;
@@ -13,5 +12,6 @@ namespace UserCrud.Models
         [Required(ErrorMessage = ErrorMessages.EmailRequired)]
         [EmailAddress(ErrorMessage = ErrorMessages.EmailFormat)]
         public string Email { get; set; } = string.Empty;
+
     }
 }

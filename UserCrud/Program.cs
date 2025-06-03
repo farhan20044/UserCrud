@@ -8,7 +8,7 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 // Add services to the container
 builder.Services.AddControllers();
 
-// Swagger registration with custom info
+// Swagger registration, I use custom info
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
