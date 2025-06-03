@@ -24,13 +24,14 @@ namespace UserCrud.Controllers
                 var users = _userService.GetAllUsers();
                 var response = ApiResponse<List<UserDto>>.SuccessResponse(users);
                 return Ok(response);
+                
             }
             catch (Exception)
             {
                 return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
             }
         }
-        //Get User
+        //Get User by Id
         [HttpGet("{id}")]
         public IActionResult GetUser(int id)
         {
@@ -55,7 +56,7 @@ namespace UserCrud.Controllers
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.NameRequired));
-                //Adding User to list 
+                    
                 var user = _userService.AddUser(userDto, out string? error);
 
                 if (user == null)
@@ -81,7 +82,7 @@ namespace UserCrud.Controllers
                 if (user == null)
                     return Conflict(ApiResponse<string>.FailureResponse(error ?? ErrorMessages.DuplicateEmail));
 
-                return Ok(ApiResponse<UserDto>.SuccessResponse(user, "User updated successfully"));
+                return Ok(ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserUpdated));
             }
             catch (Exception)
             {

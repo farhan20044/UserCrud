@@ -11,5 +11,9 @@ namespace UserCrud.Models.Dto
         [Required(ErrorMessage = ErrorMessages.EmailRequired)]
         [EmailAddress(ErrorMessage = ErrorMessages.EmailFormat)]
         public string Email { get; set; } = string.Empty;
+        [Required(ErrorMessage = ErrorMessages.PhoneRequired)]
+        [Phone(ErrorMessage = ErrorMessages.InvalidPhoneFormat)]
+        public string PhoneNumber { get; set; } = string.Empty;
+
     }
 }

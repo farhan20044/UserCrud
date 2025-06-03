@@ -12,6 +12,12 @@ namespace UserCrud.Helpers
         public const string NameLength = "Name must be between 8 and 12 characters";
         public const string EmailRequired = "Email is required";
         public const string EmailFormat = "Invalid email format";
-        public const string UserCreated = "User Created Successfull";
+        public const string UserCreated = "User Created Successfully";
+        public const string UserUpdated = "User Updated Successfully";
+        public const string PhoneRequired = "Phone number is required";
+        public const string InvalidPhoneFormat = "Phone number must be exactly 11 digits";
+        public const string DuplicatedPhoneNumber = "Phone number Already Exists";
+
+
     }
 }
