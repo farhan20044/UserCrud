@@ -184,9 +184,9 @@ namespace UserCrud.Controllers
                 }
 
                 users.Remove(user);
-                // renumbering Id
-                for (int i = 0; i < users.Count; i++)
-                    users[i].Id = i + 1;
+                // // renumbering Id
+                // for (int i = 0; i < users.Count; i++)
+                //     users[i].Id = i + 1;
 
                 return Ok(ErrorMessages.UserDeleted);
             }

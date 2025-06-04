@@ -59,3 +59,5 @@ C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.pdb
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.genruntimeconfig.cache
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\ref\UserCrud.dll
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\UserCrud.sourcelink.json
+C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

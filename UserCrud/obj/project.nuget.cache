@@ -1,15 +1,33 @@
 {
   "version": 2,
-  "dgSpecHash": "ALlisnKXHA4=",
+  "dgSpecHash": "V7fYX6j56IA=",
   "success": true,
   "projectFilePath": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\UserCrud.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Farhan\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
+    "C:\\Users\\Farhan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\Farhan\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\Farhan\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
+    "C:\\Users\\Farhan\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\microsoft.openapi\\1.6.23\\microsoft.openapi.1.6.23.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\swashbuckle.aspnetcore\\8.1.2\\swashbuckle.aspnetcore.8.1.2.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\8.1.2\\swashbuckle.aspnetcore.swagger.8.1.2.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\8.1.2\\swashbuckle.aspnetcore.swaggergen.8.1.2.nupkg.sha512",
     "C:\\Users\\Farhan\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\8.1.2\\swashbuckle.aspnetcore.swaggerui.8.1.2.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "message": "Detected package version outside of dependency constraint: AutoMapper.Extensions.Microsoft.DependencyInjection 12.0.1 requires AutoMapper (= 12.0.1) but version AutoMapper 14.0.0 was resolved.",
+      "projectPath": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\UserCrud.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\UserCrud.csproj",
+      "libraryId": "AutoMapper",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }
