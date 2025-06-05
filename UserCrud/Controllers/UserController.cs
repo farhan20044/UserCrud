@@ -3,12 +3,13 @@ using UserCrud.Models.Dto;
 using UserCrud.Helpers;
 using UserCrud.Services;
 using System;
+using System.Linq;
 
 namespace UserCrud.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
         public UserController(IUserService userService)
@@ -22,13 +23,11 @@ namespace UserCrud.Controllers
             try
             {
                 var users = _userService.GetAllUsers();
-                var response = ApiResponse<List<UserDto>>.SuccessResponse(users);
-                return Ok(response);
-                
+                return Ok(ApiResponse<List<UserDto>>.SuccessResponse(users));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
             }
         }
         //Get User by Id
@@ -38,55 +37,82 @@ namespace UserCrud.Controllers
             try
             {
                 var user = _userService.GetUserById(id);
-                if (user == null)
-                    return NotFound(ApiResponse<UserDto>.FailureResponse(ErrorMessages.UserNotFound));
-
                 return Ok(ApiResponse<UserDto>.SuccessResponse(user));
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
+                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
             }
         }
         //Post User
         [HttpPost]
         public IActionResult AddUser([FromBody] CreateUserDto userDto)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+                return BadRequest(ApiResponse<string>.FailureResponse(string.Join(", ", errors)));
+            }
+
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.NameRequired));
-                    
-                var user = _userService.AddUser(userDto, out string? error);
-
-                if (user == null)
-                    return Conflict(ApiResponse<string>.FailureResponse(error ?? ErrorMessages.DuplicateEmail));
-
-                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserCreated));
+                var user = _userService.AddUser(userDto);
+                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, 
+                    ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserCreated));
             }
-            catch (Exception)
+            catch (ArgumentException ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.DuplicateEmail));
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
             }
         }
         // Update User
         [HttpPut("{id}")]
         public IActionResult UpdateUser(int id, [FromBody] UpdateUserDto userDto)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+                return BadRequest(ApiResponse<string>.FailureResponse(string.Join(", ", errors)));
+            }
+
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.NameRequired));
-
-                var user = _userService.UpdateUser(id, userDto, out string? error);
-                if (user == null)
-                    return Conflict(ApiResponse<string>.FailureResponse(error ?? ErrorMessages.DuplicateEmail));
-
+                var user = _userService.UpdateUser(id, userDto);
                 return Ok(ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserUpdated));
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.DuplicateEmail));
+                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
             }
         }
         //Delete User
@@ -95,15 +121,16 @@ namespace UserCrud.Controllers
         {
             try
             {
-                var deleted = _userService.DeleteUser(id, out string? error);
-                if (!deleted)
-                    return NotFound(ApiResponse<string>.FailureResponse(error ?? ErrorMessages.UserNotFound));
-
+                _userService.DeleteUser(id);
                 return Ok(ApiResponse<string>.SuccessResponse(null, ErrorMessages.UserDeleted));
             }
-            catch (Exception)
+            catch (KeyNotFoundException ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ErrorMessages.UserNotFound));
+                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
             }
         }
     }

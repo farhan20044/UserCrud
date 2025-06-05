@@ -5,6 +5,7 @@ using UserCrud.Models;
 using UserCrud.Models.Dto;
 using UserCrud.Helpers;
 using AutoMapper;
+using System;
 
 namespace UserCrud.Services
 {
@@ -17,33 +18,21 @@ namespace UserCrud.Services
             _mapper = mapper;
         }
 
-        //Email Validation 
-        private bool ValidateEmail(string email, out string error)
+        //Domain Validation 
+        private void ValidateEmailDomain(string email)
         {
-            error = "";
-            if (string.IsNullOrWhiteSpace(email) || !new EmailAddressAttribute().IsValid(email))
-            {
-                error = ErrorMessages.InvalidEmailFormat;
-                return false;
-            }
             var domain = email.Substring(email.LastIndexOf('@')).ToLower();
             if (!Domains.AllowedDomains.Any(d => domain.EndsWith(d)))
             {
-                error = ErrorMessages.InvalidEmailDomain;
-                return false;
+                throw new ArgumentException(ErrorMessages.InvalidEmailDomain);
             }
-            return true;
         }
-        //Phone numeber Validation 
-        private bool ValidatePhoneNumber(string phoneNumber, out string error)
+
+        private bool IsEmailDuplicate(string email, string? currentEmail = null)
         {
-            error = "";
-            if (string.IsNullOrWhiteSpace(phoneNumber) || phoneNumber.Length != 11 || !phoneNumber.All(char.IsDigit))
-            {
-                error = ErrorMessages.InvalidPhoneFormat;
-                return false;
-            }
-            return true;
+            return users.Any(u => 
+                u.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && 
+                (currentEmail == null || !u.Email.Equals(currentEmail, StringComparison.OrdinalIgnoreCase)));
         }
 
         //Get list of All Users
@@ -51,38 +40,28 @@ namespace UserCrud.Services
         {
             return _mapper.Map<List<UserDto>>(users);
         }
+
         //Get users by Id
         public UserDto? GetUserById(int id)
         {
             var user = users.FirstOrDefault(u => u.Id == id);
-            return user == null ? null : _mapper.Map<UserDto>(user);
+            if (user == null)
+            {
+                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+            }
+            return _mapper.Map<UserDto>(user);
         }
-        //Add new User
-        public UserDto? AddUser(CreateUserDto userDto, out string? error)
-        {
-            error = null;
-            //First Validate Email
-            if (!ValidateEmail(userDto.Email, out string emailError))
-            {   
-                error = emailError;
-                return null;
-            }
-            //Check if Email is Duplicated 
-            if (users.Any(u => u.Email.Equals(userDto.Email, System.StringComparison.OrdinalIgnoreCase)))
-            {
-                error = ErrorMessages.DuplicateEmail;
-                return null;
-            }
 
-            if (!ValidatePhoneNumber(userDto.PhoneNumber, out string phoneError))
+        //Add new User
+        public UserDto? AddUser(CreateUserDto userDto)
+        {
+            //Validate Email Domain
+            ValidateEmailDomain(userDto.Email);
+
+            //Check if Email is Duplicated 
+            if (IsEmailDuplicate(userDto.Email))
             {
-                error = phoneError;
-                return null;
-            }
-            if (users.Any(u => u.PhoneNumber == userDto.PhoneNumber))
-            {
-                error = ErrorMessages.DuplicatedPhoneNumber;
-                return null;
+                throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
             }
 
             //Map to UserDto
@@ -91,55 +70,42 @@ namespace UserCrud.Services
             users.Add(user);
             return _mapper.Map<UserDto>(user);
         }
+
         //Update User
-        public UserDto? UpdateUser(int id, UpdateUserDto userDto, out string? error)
+        public UserDto? UpdateUser(int id, UpdateUserDto userDto)
         {
-            error = null;
-            //Validate Email
-            if (!ValidateEmail(userDto.Email, out string emailError))
-            {
-                error = emailError;
-                return null;
-            }
-            if (!ValidatePhoneNumber(userDto.PhoneNumber, out string phoneError))
-            {
-                error = phoneError;
-                return null;
-            }
+            //Validate Email Domain
+            ValidateEmailDomain(userDto.Email);
 
             //Find user by Id to update 
             var user = users.FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
-                error = ErrorMessages.UserNotFound;
-                return null;
+                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
             }
+
             //Check if Email is Duplicated 
-            if (!user.Email.Equals(userDto.Email, System.StringComparison.OrdinalIgnoreCase) &&
-                users.Any(u => u.Email.Equals(userDto.Email, System.StringComparison.OrdinalIgnoreCase)))
+            if (IsEmailDuplicate(userDto.Email, user.Email))
             {
-                error = ErrorMessages.DuplicateEmail;
-                return null;
+                throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
             }
+
             if (!user.PhoneNumber.Equals(userDto.PhoneNumber) && users.Any(u => u.PhoneNumber == userDto.PhoneNumber))
             {
-                error = ErrorMessages.DuplicatedPhoneNumber;
-                return null;
+                throw new InvalidOperationException(ErrorMessages.DuplicatedPhoneNumber);
             }
 
             _mapper.Map(userDto, user);
             return _mapper.Map<UserDto>(user);
         }
 
-        public bool DeleteUser(int id, out string? error)
+        public bool DeleteUser(int id)
         {
-            error = null;
             //Find by id 
             var user = users.FirstOrDefault(u => u.Id == id);
             if (user == null)
             {
-                error = ErrorMessages.UserNotFound;
-                return false;
+                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
             }
             //Remove from Users List 
             users.Remove(user);
