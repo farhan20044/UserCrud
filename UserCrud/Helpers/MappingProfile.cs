@@ -10,7 +10,6 @@ namespace UserCrud.Helpers
         {
             CreateMap<User, UserDto>(); 
             CreateMap<CreateUserDto, User>();
-            CreateMap<UpdateUserDto, User>();
         }
     }
 }

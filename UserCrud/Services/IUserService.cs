@@ -8,7 +8,7 @@ namespace UserCrud.Services
         List<UserDto> GetAllUsers();
         UserDto? GetUserById(int id);
         UserDto? AddUser(CreateUserDto userDto);
-        UserDto? UpdateUser(int id, UpdateUserDto userDto);
+        UserDto? UpdateUser(int id, CreateUserDto userDto);
         bool DeleteUser(int id);
     }
 }

@@ -23,11 +23,11 @@ namespace UserCrud.Controllers
             try
             {
                 var users = _userService.GetAllUsers();
-                return Ok(ApiResponse<List<UserDto>>.SuccessResponse(users));
+                return Ok(users);
             }
             catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+                return BadRequest(ex);
             }
         }
         //Get User by Id
@@ -37,15 +37,15 @@ namespace UserCrud.Controllers
             try
             {
                 var user = _userService.GetUserById(id);
-                return Ok(ApiResponse<UserDto>.SuccessResponse(user));
+                return Ok(user);
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
+                return NotFound(ex);
             }
             catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+                return BadRequest(ex);
             }
         }
         //Post User
@@ -58,31 +58,23 @@ namespace UserCrud.Controllers
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
                     .ToList();
-                return BadRequest(ApiResponse<string>.FailureResponse(string.Join(", ", errors)));
+                return BadRequest(errors);
             }
 
             try
             {
                 var user = _userService.AddUser(userDto);
-                return CreatedAtAction(nameof(GetUser), new { id = user.Id }, 
-                    ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserCreated));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(ApiResponse<string>.FailureResponse(ex.Message));
+                return  
+                    Ok(user, ErrorMessages.UserCreated);
             }
             catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+                return BadRequest(ex);
             }
         }
         // Update User
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] UpdateUserDto userDto)
+        public IActionResult UpdateUser(int id, [FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -90,29 +82,17 @@ namespace UserCrud.Controllers
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
                     .ToList();
-                return BadRequest(ApiResponse<string>.FailureResponse(string.Join(", ", errors)));
+                return BadRequest(errors);
             }
 
             try
             {
                 var user = _userService.UpdateUser(id, userDto);
-                return Ok(ApiResponse<UserDto>.SuccessResponse(user, ErrorMessages.UserUpdated));
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
-            }
-            catch (ArgumentException ex)
-            {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(ApiResponse<string>.FailureResponse(ex.Message));
+                return Ok(user, ErrorMessages.UserUpdated);
             }
             catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+                return BadRequest(ex);
             }
         }
         //Delete User
@@ -122,15 +102,11 @@ namespace UserCrud.Controllers
             try
             {
                 _userService.DeleteUser(id);
-                return Ok(ApiResponse<string>.SuccessResponse(null, ErrorMessages.UserDeleted));
-            }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ApiResponse<string>.FailureResponse(ex.Message));
+                return Ok(ErrorMessages.UserDeleted);
             }
             catch (Exception ex)
             {
-                return BadRequest(ApiResponse<string>.FailureResponse(ex.Message));
+                return BadRequest(ex);
             }
         }
     }

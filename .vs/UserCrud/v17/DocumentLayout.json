@@ -1,28 +1,40 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\",
+  "WorkspaceRootPath": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\source\\repos\\usercrud\\usercrud\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\migrations\\userdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\migrations\\userdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\source\\repos\\usercrud\\usercrud\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\migrations\\20250605220239_initcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\migrations\\20250605220239_initcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\source\\repos\\usercrud\\usercrud\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\usercrud.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\usercrud.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 256,
+      "VerticalTabListWidth": 100,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,41 +42,80 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Program.cs",
-              "RelativeDocumentMoniker": "UserCrud\\Program.cs",
-              "ToolTip": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Program.cs",
-              "RelativeToolTip": "UserCrud\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T21:55:44.829Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "UserCrud\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Controllers\\UserController.cs",
-              "RelativeToolTip": "UserCrud\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAMcAAAAAAAAAAAAAAHkAAAARAAAAAAAAAA==",
+              "Title": "UserdbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Migrations\\UserdbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Migrations\\UserdbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Migrations\\UserdbContextModelSnapshot.cs",
+              "RelativeToolTip": "UserCrud\\Migrations\\UserdbContextModelSnapshot.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAQwC0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T21:55:26.687Z",
+              "WhenOpened": "2025-06-05T22:04:20.449Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Models\\User.cs",
-              "RelativeDocumentMoniker": "UserCrud\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Farhan\\source\\repos\\UserCrud\\UserCrud\\Models\\User.cs",
-              "RelativeToolTip": "UserCrud\\Models\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAVAAAAAAAAAA==",
+              "Title": "20250605220239_initCreate.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Migrations\\20250605220239_initCreate.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Migrations\\20250605220239_initCreate.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Migrations\\20250605220239_initCreate.cs",
+              "RelativeToolTip": "UserCrud\\Migrations\\20250605220239_initCreate.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-28T21:54:59.023Z",
+              "WhenOpened": "2025-06-05T22:04:16.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserCrud.csproj.Backup.tmp",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\UserCrud.csproj.Backup.tmp",
+              "RelativeDocumentMoniker": "UserCrud\\UserCrud.csproj.Backup.tmp",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\UserCrud.csproj.Backup.tmp",
+              "RelativeToolTip": "UserCrud\\UserCrud.csproj.Backup.tmp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-05T22:04:12.687Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Controllers\\BaseController.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "UserCrud\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T19:39:41.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Program.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Program.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Program.cs",
+              "RelativeToolTip": "UserCrud\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T19:33:48.016Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserdbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\UserdbContext.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\UserdbContext.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\UserdbContext.cs",
+              "RelativeToolTip": "UserCrud\\Models\\UserdbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-05T19:29:47.332Z",
               "EditorCaption": ""
             }
           ]

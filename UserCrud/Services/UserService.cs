@@ -18,98 +18,127 @@ namespace UserCrud.Services
             _mapper = mapper;
         }
 
-        //Domain Validation 
-        private void ValidateEmailDomain(string email)
-        {
-            var domain = email.Substring(email.LastIndexOf('@')).ToLower();
-            if (!Domains.AllowedDomains.Any(d => domain.EndsWith(d)))
-            {
-                throw new ArgumentException(ErrorMessages.InvalidEmailDomain);
-            }
-        }
-
         private bool IsEmailDuplicate(string email, string? currentEmail = null)
         {
-            return users.Any(u => 
-                u.Email.Equals(email, StringComparison.OrdinalIgnoreCase) && 
+            return users.Any(u =>
+                u.Email.Equals(email, StringComparison.OrdinalIgnoreCase) &&
                 (currentEmail == null || !u.Email.Equals(currentEmail, StringComparison.OrdinalIgnoreCase)));
+
         }
 
         //Get list of All Users
         public List<UserDto> GetAllUsers()
         {
-            return _mapper.Map<List<UserDto>>(users);
+            try
+            {
+                return _mapper.Map<List<UserDto>>(users);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         //Get users by Id
         public UserDto? GetUserById(int id)
         {
-            var user = users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
+            try
             {
-                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+                var user = users.FirstOrDefault(u => u.Id == id);
+                if (user == null)
+                {
+                    throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+                }
+                return _mapper.Map<UserDto>(user);
             }
-            return _mapper.Map<UserDto>(user);
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         //Add new User
         public UserDto? AddUser(CreateUserDto userDto)
         {
-            //Validate Email Domain
-            ValidateEmailDomain(userDto.Email);
-
-            //Check if Email is Duplicated 
-            if (IsEmailDuplicate(userDto.Email))
+            try
             {
-                throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
-            }
+                if (IsEmailDuplicate(userDto.Email))
+                {
+                    throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
+                }
 
-            //Map to UserDto
-            var user = _mapper.Map<User>(userDto);
-            user.Id = users.Count == 0 ? 1 : users.Max(u => u.Id) + 1;
-            users.Add(user);
-            return _mapper.Map<UserDto>(user);
+                var user = _mapper.Map<User>(userDto);
+                user.Id = users.Count == 0 ? 1 : users.Max(u => u.Id) + 1;
+                users.Add(user);
+                return _mapper.Map<UserDto>(user);
+            }
+            catch (InvalidOperationException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         //Update User
-        public UserDto? UpdateUser(int id, UpdateUserDto userDto)
+        public UserDto? UpdateUser(int id, CreateUserDto userDto)
         {
-            //Validate Email Domain
-            ValidateEmailDomain(userDto.Email);
-
-            //Find user by Id to update 
-            var user = users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
+            try
             {
-                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
-            }
+                var user = users.FirstOrDefault(u => u.Id == id);
+                if (user == null)
+                {
+                    throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+                }
 
-            //Check if Email is Duplicated 
-            if (IsEmailDuplicate(userDto.Email, user.Email))
+                if (IsEmailDuplicate(userDto.Email, user.Email))
+                {
+                    throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
+                }
+
+                _mapper.Map(userDto, user);
+                return _mapper.Map<UserDto>(user);
+            }
+            catch (KeyNotFoundException)
             {
-                throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
+                throw;
             }
-
-            if (!user.PhoneNumber.Equals(userDto.PhoneNumber) && users.Any(u => u.PhoneNumber == userDto.PhoneNumber))
+            catch (InvalidOperationException)
             {
-                throw new InvalidOperationException(ErrorMessages.DuplicatedPhoneNumber);
+                throw;
             }
-
-            _mapper.Map(userDto, user);
-            return _mapper.Map<UserDto>(user);
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public bool DeleteUser(int id)
         {
-            //Find by id 
-            var user = users.FirstOrDefault(u => u.Id == id);
-            if (user == null)
+            try
             {
-                throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+                var user = users.FirstOrDefault(u => u.Id == id);
+                if (user == null)
+                {
+                    throw new KeyNotFoundException(ErrorMessages.UserNotFound);
+                }
+                users.Remove(user);
+                return true;
             }
-            //Remove from Users List 
-            users.Remove(user);
-            return true;
+            catch (KeyNotFoundException)
+            {
+                throw;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

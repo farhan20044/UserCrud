@@ -1,5 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using UserCrud.Helpers;
+using UserCrud.Models;
 using UserCrud.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +10,14 @@ builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 // Add services to the container
 builder.Services.AddControllers();
+builder.Services.AddDbContext<UserdbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
 
 // Swagger registration, I use custom info
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
