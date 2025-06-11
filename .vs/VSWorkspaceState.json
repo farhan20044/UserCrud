@@ -3,8 +3,8 @@
     "",
     "\\UserCrud",
     "\\UserCrud\\Controllers",
+    "\\UserCrud\\Migrations",
     "\\UserCrud\\Models"
   ],
-  "SelectedNode": "\\UserCrud",
   "PreviewInSolutionExplorer": false
 }

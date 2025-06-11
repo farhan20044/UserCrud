@@ -4,6 +4,9 @@ using UserCrud.Helpers;
 using UserCrud.Services;
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using UserCrud.Models;
+using System.Threading.Tasks;
 
 namespace UserCrud.Controllers
 {
@@ -16,13 +19,15 @@ namespace UserCrud.Controllers
         {
             _userService = userService;
         }
+
         //Get All Users
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
             try
             {
-                var users = _userService.GetAllUsers();
+                var users = await _userService.GetAllUsers();
+                
                 return Ok(users);
             }
             catch (Exception ex)
@@ -32,11 +37,11 @@ namespace UserCrud.Controllers
         }
         //Get User by Id
         [HttpGet("{id}")]
-        public IActionResult GetUser(int id)
+        public async Task<IActionResult> GetUser(int id)
         {
             try
             {
-                var user = _userService.GetUserById(id);
+                var user = await _userService.GetUserById(id);
                 return Ok(user);
             }
             catch (KeyNotFoundException ex)
@@ -50,22 +55,21 @@ namespace UserCrud.Controllers
         }
         //Post User
         [HttpPost]
-        public IActionResult AddUser([FromBody] CreateUserDto userDto)
+        public async Task<IActionResult> AddUser([FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-                return BadRequest(errors);
+                // var errors = ModelState.Values
+                //     .SelectMany(v => v.Errors)
+                //     .Select(e => e.ErrorMessage)
+                //     .ToList();
+                return BadRequest(ModelState);
             }
-
             try
             {
-                var user = _userService.AddUser(userDto);
-                return  
-                    Ok(user, ErrorMessages.UserCreated);
+                var user = await _userService.AddUser(userDto);
+                return Ok(user, ErrorMessages.UserCreated);
+                
             }
             catch (Exception ex)
             {
@@ -74,20 +78,20 @@ namespace UserCrud.Controllers
         }
         // Update User
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] CreateUserDto userDto)
+        public async Task<IActionResult> UpdateUser(int id, [FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
             {
-                var errors = ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage)
-                    .ToList();
-                return BadRequest(errors);
+                // var errors = ModelState.Values
+                //     .SelectMany(v => v.Errors)
+                //     .Select(e => e.ErrorMessage)
+                //     .ToList();
+                return BadRequest(ModelState);
             }
 
             try
             {
-                var user = _userService.UpdateUser(id, userDto);
+                var user = await _userService.UpdateUser(id, userDto);
                 return Ok(user, ErrorMessages.UserUpdated);
             }
             catch (Exception ex)
@@ -97,11 +101,11 @@ namespace UserCrud.Controllers
         }
         //Delete User
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             try
             {
-                _userService.DeleteUser(id);
+                await _userService.DeleteUser(id);
                 return Ok(ErrorMessages.UserDeleted);
             }
             catch (Exception ex)
@@ -109,5 +113,6 @@ namespace UserCrud.Controllers
                 return BadRequest(ex);
             }
         }
+ 
     }
 }
