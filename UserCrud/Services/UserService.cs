@@ -23,17 +23,6 @@ namespace UserCrud.Services
             _userdb = userdb;
         }
 
-        private async Task<bool> IsEmailDuplicate(string email, string? currentEmail = null)
-        {
-            var existingUser = await _userdb.Users
-                .FirstOrDefaultAsync(u => 
-                    u.Email.ToLower() == email.ToLower() &&
-                    (currentEmail == null || u.Email.ToLower() != currentEmail.ToLower()));
-
-            return existingUser != null;
-
-        }
-
         //Get list of All Users
         public async Task<List<UserDto>> GetAllUsers()
         {
@@ -60,10 +49,6 @@ namespace UserCrud.Services
                 }
                 return _mapper.Map<UserDto>(user);
             }
-            catch (KeyNotFoundException)
-            {
-                throw;
-            }
             catch (Exception)
             {
                 throw;
@@ -86,10 +71,6 @@ namespace UserCrud.Services
                 await _userdb.SaveChangesAsync();
                 
                 return _mapper.Map<UserDto>(user);
-            }
-            catch (InvalidOperationException)
-            {
-                throw;
             }
             catch (Exception)
             {
@@ -118,10 +99,6 @@ namespace UserCrud.Services
 
                 return _mapper.Map<UserDto>(user);
             }
-            catch (KeyNotFoundException)
-            {
-                throw;
-            }
             catch (Exception)
             {
                 throw;
@@ -143,14 +120,20 @@ namespace UserCrud.Services
 
                 return true;
             }
-            catch (KeyNotFoundException)
-            {
-                throw;
-            }
             catch (Exception)
             {
                 throw;
             }
+        }
+        private async Task<bool> IsEmailDuplicate(string email, string? currentEmail = null)
+        {
+            var existingUser = await _userdb.Users
+                .FirstOrDefaultAsync(u =>
+                    u.Email.ToLower() == email.ToLower() &&
+                    (currentEmail == null || u.Email.ToLower() != currentEmail.ToLower()));
+
+            return existingUser != null;
+
         }
     }
 }

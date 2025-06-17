@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using UserCrud.Models;
 using UserCrud.Models.Dto;
+using UserCrud.Services;
 
 namespace UserCrud.Controllers
 {
@@ -15,12 +12,12 @@ namespace UserCrud.Controllers
     public class AuthController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly IJwtService _jwtService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, IConfiguration configuration)
+        public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService)
         {
             _userManager = userManager;
-            _configuration = configuration;
+            _jwtService = jwtService;
         }
 
         [HttpPost("register")]
@@ -61,7 +58,7 @@ namespace UserCrud.Controllers
                 return Unauthorized(new { message = "Invalid email or password" });
             }
 
-            var token = GenerateJwtToken(user);
+            var token = _jwtService.GenerateJwtToken(user);
 
             return Ok(new
             {
@@ -74,33 +71,6 @@ namespace UserCrud.Controllers
                     user.LastName
                 }
             });
-        }
-
-        private string GenerateJwtToken(ApplicationUser user)
-        {
-            var jwtSettings = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
-            };
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(jwtSettings.DurationInMinutes),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Issuer = jwtSettings.Issuer,
-                Audience = jwtSettings.Audience
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
         }
     }
 } 

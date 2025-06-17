@@ -94,6 +94,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Register your user service
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IJwtService, JwtService>();
 
 var app = builder.Build();
 
