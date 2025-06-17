@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using UserCrud.Models.Dto;
 using UserCrud.Helpers;
 using UserCrud.Services;
@@ -12,6 +13,7 @@ namespace UserCrud.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
@@ -59,10 +61,7 @@ namespace UserCrud.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // var errors = ModelState.Values
-                //     .SelectMany(v => v.Errors)
-                //     .Select(e => e.ErrorMessage)
-                //     .ToList();
+                
                 return BadRequest(ModelState);
             }
             try
@@ -82,10 +81,7 @@ namespace UserCrud.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // var errors = ModelState.Values
-                //     .SelectMany(v => v.Errors)
-                //     .Select(e => e.ErrorMessage)
-                //     .ToList();
+                
                 return BadRequest(ModelState);
             }
 
