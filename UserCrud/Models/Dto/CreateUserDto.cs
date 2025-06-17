@@ -5,15 +5,19 @@ namespace UserCrud.Models.Dto
     public class CreateUserDto
     {
         [Required(ErrorMessage = ErrorMessages.NameRequired)]
-        [StringLength(12, MinimumLength = 8, ErrorMessage = ErrorMessages.NameLength)]
-        public string Name { get; set; } = string.Empty;
+        [StringLength(50, MinimumLength = 2, ErrorMessage = ErrorMessages.NameLength)]
+        public required string FirstName { get; set; }
+
+        [Required(ErrorMessage = ErrorMessages.NameRequired)]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = ErrorMessages.NameLength)]
+        public required string LastName { get; set; }
 
         [Required(ErrorMessage = ErrorMessages.EmailRequired)]
         [EmailAddress(ErrorMessage = ErrorMessages.InvalidEmailFormat)]
-        public string Email { get; set; } = string.Empty;
+        public required string Email { get; set; }
 
         [Required(ErrorMessage = ErrorMessages.PhoneRequired)]
         [RegularExpression(@"^\d{11}$", ErrorMessage = ErrorMessages.InvalidPhoneFormat)]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public required string PhoneNumber { get; set; }
     }
 }

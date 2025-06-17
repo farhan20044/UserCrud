@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using UserCrud.Helpers;
 
 namespace UserCrud.Models.Dto
 {
@@ -6,16 +7,20 @@ namespace UserCrud.Models.Dto
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
         [MinLength(6)]
-        public string Password { get; set; }
+        public required string Password { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
+        public required string FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public required string LastName { get; set; }
+
+        [Required(ErrorMessage = ErrorMessages.PhoneRequired)]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = ErrorMessages.InvalidPhoneFormat)]
+        public required string PhoneNumber { get; set; }
     }
 } 

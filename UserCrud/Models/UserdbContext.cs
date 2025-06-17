@@ -12,7 +12,5 @@ namespace UserCrud.Models
         public UserdbContext(DbContextOptions options) : base(options)
         {
         }
-
-        public DbSet<User> Users { get; set; }
     }
 }

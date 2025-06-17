@@ -2,9 +2,10 @@ namespace UserCrud.Models.Dto
 {
     public class UserDto
     {
-        public int Id { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PhoneNumber { get; set; } = string.Empty;
+        public required string Id { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public required string PhoneNumber { get; set; }
     }
 }

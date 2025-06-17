@@ -199,4 +199,3 @@ C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\runtimes\bro
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
-C:\Users\Farhan\Documents\GitHub\UserCrud\UserCrud\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

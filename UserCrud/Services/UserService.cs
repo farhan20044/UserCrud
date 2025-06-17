@@ -8,6 +8,7 @@ using AutoMapper;
 using System;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace UserCrud.Services
 {
@@ -15,12 +16,12 @@ namespace UserCrud.Services
     {
         //private static readonly List<User> users = new();
         private readonly IMapper _mapper;
-        private readonly UserdbContext _userdb;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserService(IMapper mapper, UserdbContext userdb)
+        public UserService(IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
-            _userdb = userdb;
+            _userManager = userManager;
         }
 
         //Get list of All Users
@@ -28,7 +29,7 @@ namespace UserCrud.Services
         {
             try
             {
-                var users = await _userdb.Users.ToListAsync();
+                var users = await _userManager.Users.ToListAsync();
                 return _mapper.Map<List<UserDto>>(users);
             }
             catch (Exception)
@@ -38,11 +39,11 @@ namespace UserCrud.Services
         }
 
         //Get users by Id
-        public async Task<UserDto?> GetUserById(int id)
+        public async Task<UserDto?> GetUserById(string id)
         {
             try
             {
-                var user = await _userdb.Users.FirstOrDefaultAsync(u => u.Id == id);
+                var user = await _userManager.FindByIdAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
@@ -60,16 +61,27 @@ namespace UserCrud.Services
         {
             try
             {
-                if (await IsEmailDuplicate(userDto.Email))
+                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUser != null)
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
 
-                var user = _mapper.Map<User>(userDto);
-                
-                await _userdb.Users.AddAsync(user);
-                await _userdb.SaveChangesAsync();
-                
+                var user = new ApplicationUser
+                {
+                    UserName = userDto.Email,
+                    Email = userDto.Email,
+                    FirstName = userDto.FirstName,
+                    LastName = userDto.LastName,
+                    PhoneNumber = userDto.PhoneNumber
+                };
+
+                var result = await _userManager.CreateAsync(user);
+                if (!result.Succeeded)
+                {
+                    throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
+
                 return _mapper.Map<UserDto>(user);
             }
             catch (Exception)
@@ -79,23 +91,33 @@ namespace UserCrud.Services
         }
 
         //Update User
-        public async Task<UserDto?> UpdateUser(int id, CreateUserDto userDto)
+        public async Task<UserDto?> UpdateUser(string id, CreateUserDto userDto)
         {
             try
             {
-                var user = await _userdb.Users.FirstOrDefaultAsync(u => u.Id == id);
+                var user = await _userManager.FindByIdAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                if (await IsEmailDuplicate(userDto.Email, user.Email))
+                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUser != null && existingUser.Id != id)
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
 
-                _mapper.Map(userDto, user);
-                await _userdb.SaveChangesAsync();
+                user.Email = userDto.Email;
+                user.UserName = userDto.Email;
+                user.FirstName = userDto.FirstName;
+                user.LastName = userDto.LastName;
+                user.PhoneNumber = userDto.PhoneNumber;
+
+                var result = await _userManager.UpdateAsync(user);
+                if (!result.Succeeded)
+                {
+                    throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
 
                 return _mapper.Map<UserDto>(user);
             }
@@ -105,18 +127,21 @@ namespace UserCrud.Services
             }
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> DeleteUser(string id)
         {
             try
             {
-                var user = await _userdb.Users.FirstOrDefaultAsync(u => u.Id == id);
+                var user = await _userManager.FindByIdAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                _userdb.Users.Remove(user);
-                await _userdb.SaveChangesAsync();
+                var result = await _userManager.DeleteAsync(user);
+                if (!result.Succeeded)
+                {
+                    throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                }
 
                 return true;
             }
@@ -124,16 +149,6 @@ namespace UserCrud.Services
             {
                 throw;
             }
-        }
-        private async Task<bool> IsEmailDuplicate(string email, string? currentEmail = null)
-        {
-            var existingUser = await _userdb.Users
-                .FirstOrDefaultAsync(u =>
-                    u.Email.ToLower() == email.ToLower() &&
-                    (currentEmail == null || u.Email.ToLower() != currentEmail.ToLower()));
-
-            return existingUser != null;
-
         }
     }
 }

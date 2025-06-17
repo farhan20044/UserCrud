@@ -39,7 +39,7 @@ namespace UserCrud.Controllers
         }
         //Get User by Id
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUser(string id)
         {
             try
             {
@@ -77,7 +77,7 @@ namespace UserCrud.Controllers
         }
         // Update User
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, [FromBody] CreateUserDto userDto)
+        public async Task<IActionResult> UpdateUser(string id, [FromBody] CreateUserDto userDto)
         {
             if (!ModelState.IsValid)
             {
@@ -97,7 +97,7 @@ namespace UserCrud.Controllers
         }
         //Delete User
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(string id)
         {
             try
             {

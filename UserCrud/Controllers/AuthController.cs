@@ -29,7 +29,8 @@ namespace UserCrud.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 FirstName = model.FirstName,
-                LastName = model.LastName
+                LastName = model.LastName,
+                PhoneNumber = model.PhoneNumber
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -68,7 +69,8 @@ namespace UserCrud.Controllers
                     user.Id,
                     user.Email,
                     user.FirstName,
-                    user.LastName
+                    user.LastName,
+                    user.PhoneNumber
                 }
             });
         }

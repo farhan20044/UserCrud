@@ -8,8 +8,8 @@ namespace UserCrud.Helpers
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>(); 
-            CreateMap<CreateUserDto, User>();
+            CreateMap<ApplicationUser, UserDto>();
+            CreateMap<CreateUserDto, ApplicationUser>();
         }
     }
 }

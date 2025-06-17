@@ -19,12 +19,17 @@ namespace UserCrud.Services
         public string GenerateJwtToken(ApplicationUser user)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
+            if (jwtSettings == null)
+            {
+                throw new InvalidOperationException("JWT settings are not configured properly");
+            }
+
             var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id ?? throw new InvalidOperationException("User ID cannot be null")),
+                new Claim(ClaimTypes.Email, user.Email ?? throw new InvalidOperationException("User email cannot be null")),
                 new Claim(ClaimTypes.Name, $"{user.FirstName} {user.LastName}")
             };
 
