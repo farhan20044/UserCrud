@@ -2,7 +2,7 @@ using UserCrud.Models.Dto;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace UserCrud.Services
+namespace UserCrud.Services.Interfaces
 {
     public interface IUserService
     {
@@ -12,4 +12,4 @@ namespace UserCrud.Services
         Task<UserDto?> UpdateUser(string id, CreateUserDto userDto);
         Task<bool> DeleteUser(string id);
     }
-}
+} 

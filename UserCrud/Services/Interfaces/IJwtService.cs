@@ -1,6 +1,6 @@
 using UserCrud.Models;
 
-namespace UserCrud.Services
+namespace UserCrud.Services.Interfaces
 {
     public interface IJwtService
     {

@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using UserCrud.Models;
 using UserCrud.Models.Dto;
 using UserCrud.Helpers;
+using UserCrud.Services.Interfaces;
+using UserCrud.Repository.Interfaces;
 using AutoMapper;
 using System;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +18,13 @@ namespace UserCrud.Services
     {
         //private static readonly List<User> users = new();
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserService(IMapper mapper, UserManager<ApplicationUser> userManager)
+        public UserService(IMapper mapper, IUserRepository userRepository, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
+            _userRepository = userRepository;
             _userManager = userManager;
         }
 
@@ -29,7 +33,7 @@ namespace UserCrud.Services
         {
             try
             {
-                var users = await _userManager.Users.ToListAsync();
+                var users = await _userRepository.GetAllAsync();
                 return _mapper.Map<List<UserDto>>(users);
             }
             catch (Exception)
@@ -43,7 +47,7 @@ namespace UserCrud.Services
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
+                var user = await _userRepository.GetByIdAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
@@ -61,8 +65,7 @@ namespace UserCrud.Services
         {
             try
             {
-                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
-                if (existingUser != null)
+                if (!await _userRepository.IsEmailUniqueAsync(userDto.Email))
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
@@ -76,7 +79,7 @@ namespace UserCrud.Services
                     PhoneNumber = userDto.PhoneNumber
                 };
 
-                var result = await _userManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user, userDto.Password);
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
@@ -95,14 +98,13 @@ namespace UserCrud.Services
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
+                var user = await _userRepository.GetByIdAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
-                if (existingUser != null && existingUser.Id != id)
+                if (!await _userRepository.IsEmailUniqueAsync(userDto.Email, id))
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
@@ -113,13 +115,8 @@ namespace UserCrud.Services
                 user.LastName = userDto.LastName;
                 user.PhoneNumber = userDto.PhoneNumber;
 
-                var result = await _userManager.UpdateAsync(user);
-                if (!result.Succeeded)
-                {
-                    throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
-
-                return _mapper.Map<UserDto>(user);
+                var updatedUser = await _userRepository.UpdateAsync(user);
+                return _mapper.Map<UserDto>(updatedUser);
             }
             catch (Exception)
             {
@@ -131,19 +128,7 @@ namespace UserCrud.Services
         {
             try
             {
-                var user = await _userManager.FindByIdAsync(id);
-                if (user == null)
-                {
-                    throw new KeyNotFoundException(ErrorMessages.UserNotFound);
-                }
-
-                var result = await _userManager.DeleteAsync(user);
-                if (!result.Succeeded)
-                {
-                    throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
-                }
-
-                return true;
+                return await _userRepository.DeleteAsync(id);
             }
             catch (Exception)
             {

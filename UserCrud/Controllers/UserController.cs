@@ -8,6 +8,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using UserCrud.Models;
 using System.Threading.Tasks;
+using UserCrud.Services.Interfaces;
 
 namespace UserCrud.Controllers
 {

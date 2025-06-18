@@ -8,6 +8,9 @@ using System.Text;
 using UserCrud.Helpers;
 using UserCrud.Models;
 using UserCrud.Services;
+using UserCrud.Services.Interfaces;
+using UserCrud.Repository;
+using UserCrud.Repository.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -95,6 +98,10 @@ builder.Services.AddSwaggerGen(c =>
 // Register your user service
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+
+// Add Repository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

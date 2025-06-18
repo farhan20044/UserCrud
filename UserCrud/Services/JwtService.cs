@@ -2,8 +2,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using UserCrud.Helpers;
 using UserCrud.Models;
 using UserCrud.Models.Dto;
+using UserCrud.Services.Interfaces;
 
 namespace UserCrud.Services
 {
@@ -21,7 +23,7 @@ namespace UserCrud.Services
             var jwtSettings = _configuration.GetSection("JwtSettings").Get<JwtSettings>();
             if (jwtSettings == null)
             {
-                throw new InvalidOperationException("JWT settings are not configured properly");
+                throw new InvalidOperationException(ErrorMessages.JwtConfigurationMessage);
             }
 
             var key = Encoding.ASCII.GetBytes(jwtSettings.Key);

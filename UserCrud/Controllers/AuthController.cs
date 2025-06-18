@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using UserCrud.Helpers;
 using UserCrud.Models;
 using UserCrud.Models.Dto;
 using UserCrud.Services;
+using UserCrud.Services.Interfaces;
 
 namespace UserCrud.Controllers
 {
@@ -37,7 +39,7 @@ namespace UserCrud.Controllers
 
             if (result.Succeeded)
             {
-                return Ok(new { message = "User registered successfully" });
+                return Ok(ErrorMessages.UserRegistered);
             }
 
             return BadRequest(result.Errors);
@@ -50,13 +52,13 @@ namespace UserCrud.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return Unauthorized(new { message = "Invalid email or password" });
+                return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
 
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
             {
-                return Unauthorized(new { message = "Invalid email or password" });
+                return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
 
             var token = _jwtService.GenerateJwtToken(user);
