@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using UserCrud.Helpers;
 using UserCrud.Models;
+using UserCrud.Models.Dto;
 using UserCrud.Services;
 using UserCrud.Services.Interfaces;
 using UserCrud.Repository;

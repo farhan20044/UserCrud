@@ -1,4 +1,4 @@
-using UserCrud.Models;
+using UserCrud.Models.Dto;
 
 namespace UserCrud.Services.Interfaces
 {

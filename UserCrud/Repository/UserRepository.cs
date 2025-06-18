@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using UserCrud.Models;
+using UserCrud.Models.Dto;
 using UserCrud.Repository.Interfaces;
 
 namespace UserCrud.Repository

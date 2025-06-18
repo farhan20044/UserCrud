@@ -1,4 +1,4 @@
-namespace UserCrud.Models
+namespace UserCrud.Models.Dto
 {
     public class JwtSettings
     {

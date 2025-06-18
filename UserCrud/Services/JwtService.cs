@@ -3,7 +3,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using UserCrud.Helpers;
-using UserCrud.Models;
 using UserCrud.Models.Dto;
 using UserCrud.Services.Interfaces;
 

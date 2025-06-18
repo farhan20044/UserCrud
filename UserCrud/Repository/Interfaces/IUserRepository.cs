@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using UserCrud.Models;
+using UserCrud.Models.Dto;
 
 namespace UserCrud.Repository.Interfaces
 {
