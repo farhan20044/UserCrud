@@ -55,5 +55,49 @@ namespace UserCrud.Repository
         {
             return await _dbSet.Where(predicate).ToListAsync();
         }
+
+        public virtual async Task<(List<T> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize, string? search, string? sortBy, string? sortOrder)
+        {
+            var query = _dbSet.AsQueryable();
+
+            // Search
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var stringProperties = typeof(T).GetProperties().Where(p => p.PropertyType == typeof(string));
+                foreach (var prop in stringProperties)
+                {
+                    var param = Expression.Parameter(typeof(T), "x");
+                    var propAccess = Expression.Property(param, prop);
+                    var searchExpr = Expression.Call(propAccess, typeof(string).GetMethod("Contains", new[] { typeof(string) })!, Expression.Constant(search));
+                    var lambda = Expression.Lambda<Func<T, bool>>(searchExpr, param);
+                    query = query.Where(lambda);
+                }
+            }
+
+            // Sorting
+            if (!string.IsNullOrWhiteSpace(sortBy))
+            {
+                var prop = typeof(T).GetProperty(sortBy, System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                if (prop != null)
+                {
+                    query = (sortOrder?.ToLower() == "desc")
+                        ? query.OrderByDescending(e => EF.Property<object>(e, prop.Name))
+                        : query.OrderBy(e => EF.Property<object>(e, prop.Name));
+                }
+            }
+            else
+            {
+                // Default sort 
+                var firstProp = typeof(T).GetProperties().FirstOrDefault();
+                if (firstProp != null)
+                {
+                    query = query.OrderBy(e => EF.Property<object>(e, firstProp.Name));
+                }
+            }
+
+            int totalCount = await query.CountAsync();
+            var items = await query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return (items, totalCount);
+        }
     }
 } 

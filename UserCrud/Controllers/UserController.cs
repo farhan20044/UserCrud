@@ -23,15 +23,19 @@ namespace UserCrud.Controllers
             _userService = userService;
         }
 
-        //Get All Users
+        //Get All Users with Pagination, Search, and Sorting
         [HttpGet]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(
+            int pageNumber = 1,
+            int pageSize = 10,
+            string? search = null,
+            string? sortBy = null,
+            string? sortOrder = null)
         {
             try
             {
-                var users = await _userService.GetAllUsers();
-                
-                return Ok(users);
+                var pagedResult = await _userService.GetUsersPaged(pageNumber, pageSize, search, sortBy, sortOrder);
+                return Ok(pagedResult);
             }
             catch (Exception ex)
             {

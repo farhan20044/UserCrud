@@ -18,10 +18,10 @@ namespace UserCrud.Services
     {
         //private static readonly List<User> users = new();
         private readonly IMapper _mapper;
-        private readonly IUserRepository _userRepository;
+        private readonly IRepository<ApplicationUser> _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserService(IMapper mapper, IUserRepository userRepository, UserManager<ApplicationUser> userManager)
+        public UserService(IMapper mapper, IRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager)
         {
             _mapper = mapper;
             _userRepository = userRepository;
@@ -65,7 +65,9 @@ namespace UserCrud.Services
         {
             try
             {
-                if (!await _userRepository.IsEmailUniqueAsync(userDto.Email))
+                
+                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUser != null)
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
@@ -104,7 +106,9 @@ namespace UserCrud.Services
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                if (!await _userRepository.IsEmailUniqueAsync(userDto.Email, id))
+                
+                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUser != null && existingUser.Id != id)
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
@@ -134,6 +138,18 @@ namespace UserCrud.Services
             {
                 throw;
             }
+        }
+
+        public async Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? search, string? sortBy, string? sortOrder)
+        {
+            var (users, totalCount) = await _userRepository.GetPagedAsync(pageNumber, pageSize, search, sortBy, sortOrder);
+            return new PagedResult<UserDto>
+            {
+                Items = _mapper.Map<List<UserDto>>(users),
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
         }
     }
 }
