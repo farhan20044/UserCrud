@@ -72,7 +72,7 @@ namespace UserCrud.Controllers
             }
 
             return Ok(new { 
-                message = "Email confirmed successfully! Please set your password using the POST /api/Auth/set-password endpoint.",
+                message = ErrorMessages.EmailConfirmed,
                 userId = userId,
                 token = token
             });
@@ -90,7 +90,7 @@ namespace UserCrud.Controllers
 
             if (!user.EmailConfirmed)
             {
-                return BadRequest("Email must be confirmed before setting password.");
+                return BadRequest(ErrorMessages.ConfirmEmail);
             }
 
             // Set the new password
@@ -103,7 +103,7 @@ namespace UserCrud.Controllers
             var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
             if (!addPassword.Succeeded)
             {
-                return BadRequest("Failed to set new password.");
+                return BadRequest(ErrorMessages.FailedSettingPass);
             }
 
             return Ok(ErrorMessages.EmailConfirmed);
@@ -132,7 +132,7 @@ namespace UserCrud.Controllers
             var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
             if (!addPassword.Succeeded)
             {
-                return BadRequest("Failed to set new password.");
+                return BadRequest(ErrorMessages.FailedSettingPass);
             }
             return Ok(ErrorMessages.EmailConfirmed);
         }

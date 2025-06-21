@@ -71,7 +71,7 @@ namespace UserCrud.Controllers
             try
             {
                 await _userService.AddUser(userDto);
-                return Ok("User created. A confirmation email has been sent to the user.");
+                return Ok(ErrorMessages.UserCreatedWithConfirmationLink);
                 
             }
             catch (Exception ex)

@@ -111,14 +111,14 @@ namespace UserCrud.Services
         {
             try
             {
-                var user = await _userRepository.GetByIdAsync(id);
+                var user = await _context.Users.FindAsync(id);
                 if (user == null)
                 {
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
-                if (existingUser != null && existingUser.Id != id)
+                var existingUserWithEmail = await _userManager.FindByEmailAsync(userDto.Email);
+                if (existingUserWithEmail != null && existingUserWithEmail.Id != id)
                 {
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
@@ -129,7 +129,16 @@ namespace UserCrud.Services
                 user.LastName = userDto.LastName;
                 user.PhoneNumber = userDto.PhoneNumber;
 
-                await _userRepository.UpdateAsync(user);
+                if (!string.IsNullOrEmpty(userDto.Password))
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var result = await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+                    if (!result.Succeeded)
+                    {
+                        throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
+                    }
+                }
+
                 await _context.SaveChangesAsync();
 
                 return _mapper.Map<UserDto>(user);
