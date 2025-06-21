@@ -18,5 +18,9 @@ namespace UserCrud.Models.Dto
         [Required(ErrorMessage = ErrorMessages.PhoneRequired)]
         [RegularExpression(@"^\d{11}$", ErrorMessage = ErrorMessages.InvalidPhoneFormat)]
         public required string PhoneNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public required string Password { get; set; }
     }
 } 

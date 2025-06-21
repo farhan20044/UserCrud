@@ -52,7 +52,7 @@
               "RelativeDocumentMoniker": "UserCrud\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\AuthController.cs",
               "RelativeToolTip": "UserCrud\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAEwCkAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAhwFwAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-20T09:31:59.162Z",
               "EditorCaption": ""
@@ -67,8 +67,7 @@
               "RelativeToolTip": "UserCrud\\Services\\EmailService.cs",
               "ViewState": "AgIAABsAAAAAAAAAAADgvyYAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T09:30:58.561Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T09:30:58.561Z"
             },
             {
               "$type": "Document",
@@ -80,8 +79,7 @@
               "RelativeToolTip": "UserCrud\\Models\\Dto\\ConfirmEmailDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T09:30:54.243Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-20T09:30:54.243Z"
             },
             {
               "$type": "Document",
@@ -105,8 +103,7 @@
               "RelativeToolTip": "UserCrud\\Services\\UserService.cs",
               "ViewState": "AgIAAJMAAAAAAAAAAAAAAJ8AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T06:25:53.66Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-19T06:25:53.66Z"
             },
             {
               "$type": "Document",

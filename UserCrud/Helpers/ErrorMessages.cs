@@ -6,9 +6,9 @@ namespace UserCrud.Helpers
         public const string DuplicateEmail = "Email already exists";
         public const string UserDeleted = "User deleted successfully";
         public const string InvalidEmailFormat = "Invalid email format";
-        public const string NoAlphanumericCharacters = "Email must contain at least one alphanumeric character before @";
         public const string NameRequired = "Name is required";
         public const string NameLength = "Name must be between 8 and 12 characters";
+        public const string PasswordLength = "Password must be at least 6 characters long";
         public const string EmailRequired = "Email is required";
         public const string EmailFormat = "Invalid email format";
         public const string UserCreated = "User Created Successfully";

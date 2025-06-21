@@ -37,7 +37,7 @@ namespace UserCrud.Controllers
                 PhoneNumber = model.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
@@ -76,65 +76,6 @@ namespace UserCrud.Controllers
                 userId = userId,
                 token = token
             });
-        }
-
-        [HttpPost("set-password")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SetPassword([FromBody] SetPasswordDto model)
-        {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            if (user == null)
-            {
-                return BadRequest(ErrorMessages.InvalidUsers);
-            }
-
-            if (!user.EmailConfirmed)
-            {
-                return BadRequest(ErrorMessages.ConfirmEmail);
-            }
-
-            // Set the new password
-            var removePassword = await _userManager.RemovePasswordAsync(user);
-            if (!removePassword.Succeeded)
-            {
-                return BadRequest(ErrorMessages.FailedinChangingPass);
-            }
-
-            var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
-            if (!addPassword.Succeeded)
-            {
-                return BadRequest(ErrorMessages.FailedSettingPass);
-            }
-
-            return Ok(ErrorMessages.EmailConfirmed);
-        }
-
-        [HttpPost("confirm-email")]
-        [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailDto model)
-        {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            if (user == null)
-            {
-                return BadRequest(ErrorMessages.InvalidUsers);
-            }
-            var result = await _userManager.ConfirmEmailAsync(user, model.Token);
-            if (!result.Succeeded)
-            {
-                return BadRequest(ErrorMessages.ExpiredToken);
-            }
-            // Set the new password
-            var removePassword = await _userManager.RemovePasswordAsync(user);
-            if (!removePassword.Succeeded)
-            {
-                return BadRequest(ErrorMessages.FailedinChangingPass);
-            }
-            var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
-            if (!addPassword.Succeeded)
-            {
-                return BadRequest(ErrorMessages.FailedSettingPass);
-            }
-            return Ok(ErrorMessages.EmailConfirmed);
         }
 
         [HttpPost("login")]
