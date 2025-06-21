@@ -29,14 +29,12 @@ namespace UserCrud.Repository
         public virtual async Task<T> AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
         public virtual async Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
@@ -47,7 +45,6 @@ namespace UserCrud.Repository
                 return false;
 
             _dbSet.Remove(entity);
-            await _context.SaveChangesAsync();
             return true;
         }
 
@@ -56,7 +53,7 @@ namespace UserCrud.Repository
             return await _dbSet.Where(predicate).ToListAsync();
         }
 
-        public virtual async Task<(List<T> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize, string? search, string? sortBy, string? sortOrder)
+        public virtual async Task<(List<T> Items, int TotalCount)> GetPagedAsync(int pageNumber, int pageSize, string? search, string? sort)
         {
             var query = _dbSet.AsQueryable();
 
@@ -74,15 +71,22 @@ namespace UserCrud.Repository
                 }
             }
 
-            // Sorting
-            if (!string.IsNullOrWhiteSpace(sortBy))
+            // Sorting - Parse single sort parameter
+            if (!string.IsNullOrWhiteSpace(sort))
             {
-                var prop = typeof(T).GetProperty(sortBy, System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                if (prop != null)
+                var sortParts = sort.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (sortParts.Length >= 1)
                 {
-                    query = (sortOrder?.ToLower() == "desc")
-                        ? query.OrderByDescending(e => EF.Property<object>(e, prop.Name))
-                        : query.OrderBy(e => EF.Property<object>(e, prop.Name));
+                    var sortField = sortParts[0];
+                    var sortDirection = sortParts.Length > 1 ? sortParts[1].ToLower() : "asc";
+
+                    var prop = typeof(T).GetProperty(sortField, System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
+                    if (prop != null)
+                    {
+                        query = (sortDirection == "desc")
+                            ? query.OrderByDescending(e => EF.Property<object>(e, prop.Name))
+                            : query.OrderBy(e => EF.Property<object>(e, prop.Name));
+                    }
                 }
             }
             else

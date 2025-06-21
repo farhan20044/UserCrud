@@ -15,11 +15,13 @@ namespace UserCrud.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IJwtService _jwtService;
+        private readonly IEmailService _emailService;
 
-        public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService)
+        public AuthController(UserManager<ApplicationUser> userManager, IJwtService jwtService, IEmailService emailService)
         {
             _userManager = userManager;
             _jwtService = jwtService;
+            _emailService = emailService;
         }
 
         [HttpPost("register")]
@@ -35,14 +37,104 @@ namespace UserCrud.Controllers
                 PhoneNumber = model.PhoneNumber
             };
 
-            var result = await _userManager.CreateAsync(user, model.Password);
+            var result = await _userManager.CreateAsync(user);
 
             if (result.Succeeded)
             {
-                return Ok(ErrorMessages.UserRegistered);
+                //email confirmation token
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action(
+                    nameof(ConfirmEmailGet),
+                    "Auth",
+                    new { userId = user.Id, token },
+                    protocol: HttpContext.Request.Scheme);
+                await _emailService.SendEmailConfirmationAsync(user.Email, confirmationLink);
+                return Ok(ErrorMessages.RegistrationSuccessfull);
             }
 
             return BadRequest(result.Errors);
+        }
+
+        [HttpGet("confirm-email")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmailGet([FromQuery] string userId, [FromQuery] string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return BadRequest(ErrorMessages.InvalidUsers);
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return BadRequest(ErrorMessages.ExpiredToken);
+            }
+
+            return Ok(new { 
+                message = "Email confirmed successfully! Please set your password using the POST /api/Auth/set-password endpoint.",
+                userId = userId,
+                token = token
+            });
+        }
+
+        [HttpPost("set-password")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SetPassword([FromBody] SetPasswordDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return BadRequest(ErrorMessages.InvalidUsers);
+            }
+
+            if (!user.EmailConfirmed)
+            {
+                return BadRequest("Email must be confirmed before setting password.");
+            }
+
+            // Set the new password
+            var removePassword = await _userManager.RemovePasswordAsync(user);
+            if (!removePassword.Succeeded)
+            {
+                return BadRequest(ErrorMessages.FailedinChangingPass);
+            }
+
+            var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
+            if (!addPassword.Succeeded)
+            {
+                return BadRequest("Failed to set new password.");
+            }
+
+            return Ok(ErrorMessages.EmailConfirmed);
+        }
+
+        [HttpPost("confirm-email")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail([FromBody] ConfirmEmailDto model)
+        {
+            var user = await _userManager.FindByIdAsync(model.UserId);
+            if (user == null)
+            {
+                return BadRequest(ErrorMessages.InvalidUsers);
+            }
+            var result = await _userManager.ConfirmEmailAsync(user, model.Token);
+            if (!result.Succeeded)
+            {
+                return BadRequest(ErrorMessages.ExpiredToken);
+            }
+            // Set the new password
+            var removePassword = await _userManager.RemovePasswordAsync(user);
+            if (!removePassword.Succeeded)
+            {
+                return BadRequest(ErrorMessages.FailedinChangingPass);
+            }
+            var addPassword = await _userManager.AddPasswordAsync(user, model.Password);
+            if (!addPassword.Succeeded)
+            {
+                return BadRequest("Failed to set new password.");
+            }
+            return Ok(ErrorMessages.EmailConfirmed);
         }
 
         [HttpPost("login")]
@@ -54,15 +146,16 @@ namespace UserCrud.Controllers
             {
                 return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
-
+            if (!user.EmailConfirmed)
+            {
+                return Unauthorized(ErrorMessages.ConfirmEmail);
+            }
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
             {
                 return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
-
             var token = _jwtService.GenerateJwtToken(user);
-
             return Ok(new
             {
                 token,

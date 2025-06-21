@@ -20,6 +20,12 @@ namespace UserCrud.Helpers
         public const string DuplicatedPhoneNumber = "Phone number Already Exists";
         public const string JwtConfigurationMessage = "JWT settings are not configured properly";
         public const string InvalidEmailPass = "Invalid Username or Password"; 
+        public const string EmailConfirmed = "Email confirmed and password set. You can now log in."; 
+        public const string FailedinChangingPass = "Failed to remove old password."; 
+        public const string InvalidUsers = "Invalid Users.";
+        public const string ConfirmEmail = "Please confirm your email before logging in..";  
+        public const string RegistrationSuccessfull = "Registration successful. Please check your email to confirm your account.";  
+        public const string ExpiredToken = "Invalid or expired token.";  
 
 
     }

@@ -29,12 +29,11 @@ namespace UserCrud.Controllers
             int pageNumber = 1,
             int pageSize = 10,
             string? search = null,
-            string? sortBy = null,
-            string? sortOrder = null)
+            string? sort = null)
         {
             try
             {
-                var pagedResult = await _userService.GetUsersPaged(pageNumber, pageSize, search, sortBy, sortOrder);
+                var pagedResult = await _userService.GetUsersPaged(pageNumber, pageSize, search, sort);
                 return Ok(pagedResult);
             }
             catch (Exception ex)
@@ -71,8 +70,8 @@ namespace UserCrud.Controllers
             }
             try
             {
-                var user = await _userService.AddUser(userDto);
-                return Ok(user, ErrorMessages.UserCreated);
+                await _userService.AddUser(userDto);
+                return Ok("User created. A confirmation email has been sent to the user.");
                 
             }
             catch (Exception ex)

@@ -20,12 +20,16 @@ namespace UserCrud.Services
         private readonly IMapper _mapper;
         private readonly IRepository<ApplicationUser> _userRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailService _emailService;
+        private readonly UserdbContext _context;
 
-        public UserService(IMapper mapper, IRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager)
+        public UserService(UserdbContext context, IMapper mapper, IRepository<ApplicationUser> userRepository, UserManager<ApplicationUser> userManager, IEmailService emailService)
         {
+            _context = context;
             _mapper = mapper;
             _userRepository = userRepository;
             _userManager = userManager;
+            _emailService = emailService;
         }
 
         //Get list of All Users
@@ -65,7 +69,6 @@ namespace UserCrud.Services
         {
             try
             {
-                
                 var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
                 if (existingUser != null)
                 {
@@ -81,11 +84,19 @@ namespace UserCrud.Services
                     PhoneNumber = userDto.PhoneNumber
                 };
 
-                var result = await _userManager.CreateAsync(user, userDto.Password);
+                var result = await _userManager.CreateAsync(user);
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
+
+                await _userRepository.AddAsync(user);
+                await _context.SaveChangesAsync();
+
+                // Generate email confirmation token and send email
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = $"https://your-frontend-url/confirm-email?userId={user.Id}&token={Uri.EscapeDataString(token)}";
+                await _emailService.SendEmailConfirmationAsync(user.Email, confirmationLink);
 
                 return _mapper.Map<UserDto>(user);
             }
@@ -106,7 +117,6 @@ namespace UserCrud.Services
                     throw new KeyNotFoundException(ErrorMessages.UserNotFound);
                 }
 
-                
                 var existingUser = await _userManager.FindByEmailAsync(userDto.Email);
                 if (existingUser != null && existingUser.Id != id)
                 {
@@ -119,8 +129,10 @@ namespace UserCrud.Services
                 user.LastName = userDto.LastName;
                 user.PhoneNumber = userDto.PhoneNumber;
 
-                var updatedUser = await _userRepository.UpdateAsync(user);
-                return _mapper.Map<UserDto>(updatedUser);
+                await _userRepository.UpdateAsync(user);
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<UserDto>(user);
             }
             catch (Exception)
             {
@@ -132,7 +144,12 @@ namespace UserCrud.Services
         {
             try
             {
-                return await _userRepository.DeleteAsync(id);
+                var result = await _userRepository.DeleteAsync(id);
+                if (result)
+                {
+                    await _context.SaveChangesAsync();
+                }
+                return result;
             }
             catch (Exception)
             {
@@ -140,9 +157,9 @@ namespace UserCrud.Services
             }
         }
 
-        public async Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? search, string? sortBy, string? sortOrder)
+        public async Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? search, string? sort)
         {
-            var (users, totalCount) = await _userRepository.GetPagedAsync(pageNumber, pageSize, search, sortBy, sortOrder);
+            var (users, totalCount) = await _userRepository.GetPagedAsync(pageNumber, pageSize, search, sort);
             return new PagedResult<UserDto>
             {
                 Items = _mapper.Map<List<UserDto>>(users),

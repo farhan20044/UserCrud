@@ -99,6 +99,7 @@ builder.Services.AddSwaggerGen(c =>
 // Register your user service
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Add Generic Repository
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
