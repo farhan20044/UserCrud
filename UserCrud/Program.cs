@@ -54,6 +54,16 @@ builder.Services.AddDbContext<UserdbContext>(option =>
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Swagger registration
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -113,6 +123,9 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "User CRUD API v1");
     c.RoutePrefix = string.Empty;
 });
+
+app.UseCors("AllowAll");
+
 
 app.UseHttpsRedirection();
 

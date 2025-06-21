@@ -1,6 +1,10 @@
-@UserCrud_HostAddress = http://localhost:5102
+@UserCrud_HostAddress = http://localhost:5253
 
 GET {{UserCrud_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{UserCrud_HostAddress}}/api/User?filter=Email.Contains("test")
+Accept: application/json
+Authorization: Bearer YOUR_TOKEN_HERE

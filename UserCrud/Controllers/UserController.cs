@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using UserCrud.Models;
 using System.Threading.Tasks;
 using UserCrud.Services.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace UserCrud.Controllers
 {
@@ -18,9 +19,13 @@ namespace UserCrud.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly IEmailService _emailService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UserController(IUserService userService, IEmailService emailService, UserManager<ApplicationUser> userManager)
         {
             _userService = userService;
+            _emailService = emailService;
+            _userManager = userManager;
         }
 
         //Get All Users with Pagination, Search, and Sorting
@@ -28,12 +33,12 @@ namespace UserCrud.Controllers
         public async Task<IActionResult> GetAllUsers(
             int pageNumber = 1,
             int pageSize = 10,
-            string? search = null,
+            string? filter = null,
             string? sort = null)
         {
             try
             {
-                var pagedResult = await _userService.GetUsersPaged(pageNumber, pageSize, search, sort);
+                var pagedResult = await _userService.GetUsersPaged(pageNumber, pageSize, filter, sort);
                 return Ok(pagedResult);
             }
             catch (Exception ex)
@@ -56,7 +61,7 @@ namespace UserCrud.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         //Post User
@@ -70,7 +75,17 @@ namespace UserCrud.Controllers
             }
             try
             {
-                await _userService.AddUser(userDto);
+                var result = await _userService.AddUser(userDto);
+                if (result?.User == null || result.Token == null)
+                {
+                    return BadRequest(ErrorMessages.UserCreationError);
+                }
+                var confirmationLink = Url.Action(
+                    "ConfirmEmailGet",
+                    "Auth",
+                    new { userId = result.User.Id, token = result.Token },
+                    protocol: HttpContext.Request.Scheme);
+                await _emailService.SendEmailConfirmationAsync(result.User.Email, confirmationLink);
                 return Ok(ErrorMessages.UserCreatedWithConfirmationLink);
                 
             }
@@ -91,8 +106,24 @@ namespace UserCrud.Controllers
 
             try
             {
-                var user = await _userService.UpdateUser(id, userDto);
-                return Ok(user, ErrorMessages.UserUpdated);
+                var result = await _userService.UpdateUser(id, userDto);
+                if (result?.User == null)
+                {
+                    return BadRequest(new Exception(ErrorMessages.UserUpdateFailed));
+                }
+
+                if (!string.IsNullOrEmpty(result.Token))
+                {
+                    var confirmationLink = Url.Action(
+                        "ConfirmEmailGet",
+                        "Auth",
+                        new { userId = result.User.Id, token = result.Token },
+                        protocol: HttpContext.Request.Scheme);
+                    await _emailService.SendEmailConfirmationAsync(result.User.Email, confirmationLink);
+                    return Ok(result.User, ErrorMessages.UserCreatedWithConfirmationLink);
+                }
+                
+                return Ok(result.User, ErrorMessages.UserUpdated);
             }
             catch (Exception ex)
             {

@@ -11,7 +11,7 @@ namespace UserCrud.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : BaseController
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IJwtService _jwtService;
@@ -51,8 +51,8 @@ namespace UserCrud.Controllers
                 await _emailService.SendEmailConfirmationAsync(user.Email, confirmationLink);
                 return Ok(ErrorMessages.RegistrationSuccessfull);
             }
-
-            return BadRequest(result.Errors);
+            var errorMessages = string.Join(", ", result.Errors.Select(e => e.Description));
+            return BadRequest(new Exception(errorMessages));
         }
 
         [HttpGet("confirm-email")]
@@ -62,13 +62,13 @@ namespace UserCrud.Controllers
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return BadRequest(ErrorMessages.InvalidUsers);
+                return BadRequest(new Exception(ErrorMessages.InvalidUsers));
             }
 
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (!result.Succeeded)
             {
-                return BadRequest(ErrorMessages.ExpiredToken);
+                return BadRequest(new Exception(ErrorMessages.ExpiredToken));
             }
 
             return Ok(new { 
@@ -85,16 +85,16 @@ namespace UserCrud.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return Unauthorized(ErrorMessages.InvalidEmailPass);
+                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.InvalidEmailPass));
             }
             if (!user.EmailConfirmed)
             {
-                return Unauthorized(ErrorMessages.ConfirmEmail);
+                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.ConfirmEmail));
             }
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
             {
-                return Unauthorized(ErrorMessages.InvalidEmailPass);
+                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.InvalidEmailPass));
             }
             var token = _jwtService.GenerateJwtToken(user);
             return Ok(new

@@ -8,9 +8,9 @@ namespace UserCrud.Services.Interfaces
     {
         Task<List<UserDto>> GetAllUsers();
         Task<UserDto?> GetUserById(string id);
-        Task<UserDto?> AddUser(CreateUserDto userDto);
-        Task<UserDto?> UpdateUser(string id, CreateUserDto userDto);
+        Task<UserCreationResultDto?> AddUser(CreateUserDto userDto);
+        Task<UserCreationResultDto?> UpdateUser(string id, CreateUserDto userDto);
         Task<bool> DeleteUser(string id);
-        Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? search, string? sort);
+        Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? filter, string? sort);
     }
 } 

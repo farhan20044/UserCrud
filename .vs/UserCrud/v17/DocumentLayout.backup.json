@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\helpers\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\helpers\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\controllers\\basecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\confirmemaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\confirmemaildto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,12 +31,44 @@
       "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\repository\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\services\\interfaces\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\pagedresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\userdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\logindto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\jwtsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\createuserdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|c:\\users\\farhan\\documents\\github\\usercrud\\usercrud\\models\\dto\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{29466EB5-F6A6-419A-99AC-CB441F0C2D3D}|UserCrud\\UserCrud.csproj|solutionrelative:usercrud\\models\\dto\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +78,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,80 +86,206 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Program.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Program.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Program.cs",
+              "RelativeToolTip": "UserCrud\\Program.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAAEAAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T10:18:57.49Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Helpers\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Helpers\\ApiResponse.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Helpers\\ApiResponse.cs",
+              "RelativeToolTip": "UserCrud\\Helpers\\ApiResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T10:17:22.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "EmailService.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\EmailService.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Services\\EmailService.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\EmailService.cs",
+              "RelativeToolTip": "UserCrud\\Services\\EmailService.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:41:44.556Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BaseController.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\BaseController.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Controllers\\BaseController.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\BaseController.cs",
+              "RelativeToolTip": "UserCrud\\Controllers\\BaseController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:34:30.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\UserController.cs",
+              "RelativeToolTip": "UserCrud\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwCMAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:34:29.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "UserdbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\UserdbContext.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\UserdbContext.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\UserdbContext.cs",
+              "RelativeToolTip": "UserCrud\\Models\\UserdbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:34:20.815Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserDto.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\UserDto.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\UserDto.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\UserDto.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\UserDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:34:11.233Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "RegisterDto.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\RegisterDto.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\RegisterDto.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\RegisterDto.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\RegisterDto.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA7wBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:34:03.596Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "LoginDto.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\LoginDto.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\LoginDto.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\LoginDto.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\LoginDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:33:57.777Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "JwtSettings.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\JwtSettings.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\JwtSettings.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\JwtSettings.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\JwtSettings.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:33:53.294Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "CreateUserDto.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\CreateUserDto.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\CreateUserDto.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\CreateUserDto.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\CreateUserDto.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAowBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:33:43.081Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\ApplicationUser.cs",
+              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\ApplicationUser.cs",
+              "RelativeToolTip": "UserCrud\\Models\\Dto\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-21T07:33:36.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "AuthController.cs",
               "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\AuthController.cs",
               "RelativeDocumentMoniker": "UserCrud\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Controllers\\AuthController.cs",
               "RelativeToolTip": "UserCrud\\Controllers\\AuthController.cs",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAhwFwAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAC4AAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-20T09:31:59.162Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "EmailService.cs",
-              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\EmailService.cs",
-              "RelativeDocumentMoniker": "UserCrud\\Services\\EmailService.cs",
-              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\EmailService.cs",
-              "RelativeToolTip": "UserCrud\\Services\\EmailService.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAADgvyYAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T09:30:58.561Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ConfirmEmailDto.cs",
-              "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\ConfirmEmailDto.cs",
-              "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\ConfirmEmailDto.cs",
-              "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\ConfirmEmailDto.cs",
-              "RelativeToolTip": "UserCrud\\Models\\Dto\\ConfirmEmailDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-20T09:30:54.243Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "IUserService.cs",
               "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "UserCrud\\Services\\Interfaces\\IUserService.cs",
               "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\Interfaces\\IUserService.cs",
               "RelativeToolTip": "UserCrud\\Services\\Interfaces\\IUserService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAIAzwA0AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-19T06:25:56.72Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "UserCrud\\Services\\UserService.cs",
               "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Services\\UserService.cs",
               "RelativeToolTip": "UserCrud\\Services\\UserService.cs",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAAAJ8AAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAACcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T06:25:53.66Z"
+              "WhenOpened": "2025-06-19T06:25:53.66Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Repository.cs",
               "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Repository\\Repository.cs",
               "RelativeDocumentMoniker": "UserCrud\\Repository\\Repository.cs",
               "ToolTip": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Repository\\Repository.cs",
               "RelativeToolTip": "UserCrud\\Repository\\Repository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGYAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFIAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-19T06:25:16.969Z"
+              "WhenOpened": "2025-06-19T06:25:16.969Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "PagedResult.cs",
               "DocumentMoniker": "C:\\Users\\Farhan\\Documents\\GitHub\\UserCrud\\UserCrud\\Models\\Dto\\PagedResult.cs",
               "RelativeDocumentMoniker": "UserCrud\\Models\\Dto\\PagedResult.cs",

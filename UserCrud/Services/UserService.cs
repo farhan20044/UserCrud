@@ -65,7 +65,7 @@ namespace UserCrud.Services
         }
 
         //Add new User
-        public async Task<UserDto?> AddUser(CreateUserDto userDto)
+        public async Task<UserCreationResultDto?> AddUser(CreateUserDto userDto)
         {
             try
             {
@@ -84,21 +84,20 @@ namespace UserCrud.Services
                     PhoneNumber = userDto.PhoneNumber
                 };
 
-                var result = await _userManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user, userDto.Password);
                 if (!result.Succeeded)
                 {
                     throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
                 }
 
-                await _userRepository.AddAsync(user);
-                await _context.SaveChangesAsync();
-
                 // Generate email confirmation token and send email
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = $"https://your-frontend-url/confirm-email?userId={user.Id}&token={Uri.EscapeDataString(token)}";
-                await _emailService.SendEmailConfirmationAsync(user.Email, confirmationLink);
 
-                return _mapper.Map<UserDto>(user);
+                return new UserCreationResultDto
+                {
+                    User = _mapper.Map<UserDto>(user),
+                    Token = token
+                };
             }
             catch (Exception)
             {
@@ -107,7 +106,7 @@ namespace UserCrud.Services
         }
 
         //Update User
-        public async Task<UserDto?> UpdateUser(string id, CreateUserDto userDto)
+        public async Task<UserCreationResultDto?> UpdateUser(string id, CreateUserDto userDto)
         {
             try
             {
@@ -123,25 +122,42 @@ namespace UserCrud.Services
                     throw new InvalidOperationException(ErrorMessages.DuplicateEmail);
                 }
 
-                user.Email = userDto.Email;
-                user.UserName = userDto.Email;
+                string? token = null;
+                bool emailChanged = user.Email != userDto.Email;
+
+                if (emailChanged)
+                {
+                    user.Email = userDto.Email;
+                    user.UserName = userDto.Email;
+                    user.EmailConfirmed = false;
+                }
+                
                 user.FirstName = userDto.FirstName;
                 user.LastName = userDto.LastName;
                 user.PhoneNumber = userDto.PhoneNumber;
 
                 if (!string.IsNullOrEmpty(userDto.Password))
                 {
-                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                    var result = await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+                    var passwordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    var result = await _userManager.ResetPasswordAsync(user, passwordToken, userDto.Password);
                     if (!result.Succeeded)
                     {
                         throw new InvalidOperationException(string.Join(", ", result.Errors.Select(e => e.Description)));
                     }
                 }
 
+                if (emailChanged)
+                {
+                    token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                }
+
                 await _context.SaveChangesAsync();
 
-                return _mapper.Map<UserDto>(user);
+                return new UserCreationResultDto
+                {
+                    User = _mapper.Map<UserDto>(user),
+                    Token = token
+                };
             }
             catch (Exception)
             {
@@ -166,9 +182,9 @@ namespace UserCrud.Services
             }
         }
 
-        public async Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? search, string? sort)
+        public async Task<PagedResult<UserDto>> GetUsersPaged(int pageNumber, int pageSize, string? filter, string? sort)
         {
-            var (users, totalCount) = await _userRepository.GetPagedAsync(pageNumber, pageSize, search, sort);
+            var (users, totalCount) = await _userRepository.GetPagedAsync(pageNumber, pageSize, filter, sort);
             return new PagedResult<UserDto>
             {
                 Items = _mapper.Map<List<UserDto>>(users),

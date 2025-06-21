@@ -15,7 +15,7 @@ namespace UserCrud.Helpers
         public const string UserRegistered = "User Registered Successfully";
         public const string UserUpdated = "User Updated Successfully";
         public const string PhoneRequired = "Phone number is required";
-        public const string InvalidPhoneFormat = "Phone number must be exactly 11 digits";
+        public const string InvalidPhoneFormat = "Invalid phone number format. Must be 11 digits.";
         public const string DuplicatedPhoneNumber = "Phone number Already Exists";
         public const string JwtConfigurationMessage = "JWT settings are not configured properly";
         public const string InvalidEmailPass = "Invalid Username or Password";  
@@ -28,7 +28,7 @@ namespace UserCrud.Helpers
           
         public const string FailedSettingPass = "Failed to set new password.";  
         public const string UserCreatedWithConfirmationLink = "User created. A confirmation email has been sent to the user.";  
-
-
+        public const string UserCreationError = "An error occurred while creating the user.";
+        public const string UserUpdateFailed = "An error occurred while updating the user.";
     }
 }

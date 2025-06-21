@@ -41,6 +41,34 @@
         }
       }
     },
+    "/api/Auth/confirm-email": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -76,6 +104,40 @@
       "get": {
         "tags": [
           "User"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
         ],
         "responses": {
           "200": {
@@ -225,6 +287,11 @@
             "minLength": 1,
             "pattern": "^\\d{11}$",
             "type": "string"
+          },
+          "password": {
+            "minLength": 6,
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -263,10 +330,6 @@
             "type": "string",
             "format": "email"
           },
-          "password": {
-            "minLength": 6,
-            "type": "string"
-          },
           "firstName": {
             "minLength": 1,
             "type": "string"
@@ -279,6 +342,11 @@
             "minLength": 1,
             "pattern": "^\\d{11}$",
             "type": "string"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string",
+            "format": "password"
           }
         },
         "additionalProperties": false
