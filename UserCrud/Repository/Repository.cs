@@ -64,23 +64,10 @@ namespace UserCrud.Repository
                 query = query.Where(filter);
             }
 
-            // Sorting - Parse single sort parameter
+            // Sorting - Use the same dynamic approach as filtering
             if (!string.IsNullOrWhiteSpace(sort))
             {
-                var sortParts = sort.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                if (sortParts.Length >= 1)
-                {
-                    var sortField = sortParts[0];
-                    var sortDirection = sortParts.Length > 1 ? sortParts[1].ToLower() : "asc";
-
-                    var prop = typeof(T).GetProperty(sortField, System.Reflection.BindingFlags.IgnoreCase | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance);
-                    if (prop != null)
-                    {
-                        query = (sortDirection == "desc")
-                            ? query.OrderByDescending(e => EF.Property<object>(e, prop.Name))
-                            : query.OrderBy(e => EF.Property<object>(e, prop.Name));
-                    }
-                }
+                query = query.OrderBy(sort);
             }
             
             int totalCount = await query.CountAsync();

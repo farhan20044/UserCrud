@@ -21,10 +21,10 @@ namespace UserCrud.Helpers
         public const string InvalidEmailPass = "Invalid Username or Password";  
         public const string FailedinChangingPass = "Failed to remove old password."; 
         public const string InvalidUsers = "Invalid Users.";
-        public const string ConfirmEmail = "Email must be confirmed before setting password.";  
+        public const string ConfirmEmail = "Email must be confirmed";  
         public const string RegistrationSuccessfull = "Registration successful. Please check your email to confirm your account.";  
         public const string ExpiredToken = "Invalid or expired token.";  
-        public const string EmailConfirmed = "Email confirmed successfully! Please set your password using the POST /api/Auth/set-password endpoint.";  
+        public const string EmailConfirmed = "Email confirmed successfully!";  
           
         public const string FailedSettingPass = "Failed to set new password.";  
         public const string UserCreatedWithConfirmationLink = "User created. A confirmation email has been sent to the user.";  
