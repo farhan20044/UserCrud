@@ -43,11 +43,7 @@ namespace UserCrud.Controllers
             {
                 //email confirmation token
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action(
-                    nameof(ConfirmEmailGet),
-                    "Auth",
-                    new { userId = user.Id, token },
-                    protocol: HttpContext.Request.Scheme);
+                var confirmationLink = EmailConfirmationHelper.GenerateEmailConfirmationLink(this, user, token);
                 await _emailService.SendEmailConfirmationAsync(user.Email, confirmationLink);
                 return Ok(ErrorMessages.RegistrationSuccessfull);
             }
@@ -71,11 +67,7 @@ namespace UserCrud.Controllers
                 return BadRequest(new Exception(ErrorMessages.ExpiredToken));
             }
 
-            return Ok(new { 
-                message = ErrorMessages.EmailConfirmed,
-                userId = userId,
-                token = token
-            });
+            return Ok(ErrorMessages.EmailConfirmed);
         }
 
         [HttpPost("login")]
@@ -85,16 +77,16 @@ namespace UserCrud.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.InvalidEmailPass));
+                return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
             if (!user.EmailConfirmed)
             {
-                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.ConfirmEmail));
+                return Unauthorized(ErrorMessages.ConfirmEmail);
             }
             var result = await _userManager.CheckPasswordAsync(user, model.Password);
             if (!result)
             {
-                return new UnauthorizedObjectResult(ApiResponse<object>.FailureResponse(ErrorMessages.InvalidEmailPass));
+                return Unauthorized(ErrorMessages.InvalidEmailPass);
             }
             var token = _jwtService.GenerateJwtToken(user);
             return Ok(new

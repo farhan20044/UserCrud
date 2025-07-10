@@ -47,4 +47,11 @@ public abstract class BaseController : ControllerBase
         var response = ApiResponse<object>.FailureResponse(ex.Message);
         return base.NotFound(response);
     }
+
+    [NonAction]
+    public virtual UnauthorizedObjectResult Unauthorized(string message)
+    {
+        var response = ApiResponse<object>.FailureResponse(message);
+        return base.Unauthorized(response);
+    }
 }

@@ -169,6 +169,7 @@ namespace UserCrud.Services
         {
             try
             {
+
                 var result = await _userRepository.DeleteAsync(id);
                 if (result)
                 {

@@ -25,7 +25,6 @@ namespace UserCrud.Helpers
         public const string RegistrationSuccessfull = "Registration successful. Please check your email to confirm your account.";  
         public const string ExpiredToken = "Invalid or expired token.";  
         public const string EmailConfirmed = "Email confirmed successfully!";  
-          
         public const string FailedSettingPass = "Failed to set new password.";  
         public const string UserCreatedWithConfirmationLink = "User created. A confirmation email has been sent to the user.";  
         public const string UserCreationError = "An error occurred while creating the user.";

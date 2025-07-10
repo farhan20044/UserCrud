@@ -80,11 +80,7 @@ namespace UserCrud.Controllers
                 {
                     return BadRequest(ErrorMessages.UserCreationError);
                 }
-                var confirmationLink = Url.Action(
-                    "ConfirmEmailGet",
-                    "Auth",
-                    new { userId = result.User.Id, token = result.Token },
-                    protocol: HttpContext.Request.Scheme);
+                var confirmationLink = EmailConfirmationHelper.GenerateEmailConfirmationLink(this, result.User, result.Token);
                 await _emailService.SendEmailConfirmationAsync(result.User.Email, confirmationLink);
                 return Ok(ErrorMessages.UserCreatedWithConfirmationLink);
                 
@@ -114,11 +110,7 @@ namespace UserCrud.Controllers
 
                 if (!string.IsNullOrEmpty(result.Token))
                 {
-                    var confirmationLink = Url.Action(
-                        "ConfirmEmailGet",
-                        "Auth",
-                        new { userId = result.User.Id, token = result.Token },
-                        protocol: HttpContext.Request.Scheme);
+                    var confirmationLink = EmailConfirmationHelper.GenerateEmailConfirmationLink(this, result.User, result.Token);
                     await _emailService.SendEmailConfirmationAsync(result.User.Email, confirmationLink);
                     return Ok(result.User, ErrorMessages.UserCreatedWithConfirmationLink);
                 }
